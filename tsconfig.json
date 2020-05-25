@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "lib": ["es2019", "dom"],
+        "target": "es2018",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "outDir": "./built",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false
+    },
+    "include": ["src"]
+}

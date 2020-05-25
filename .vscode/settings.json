@@ -1,0 +1,11 @@
+{
+    "editor.renderWhitespace": "all",
+    "files.trimTrailingWhitespace": true,
+    "breadcrumbs.enabled": true,
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "typescript.updateImportsOnFileMove.enabled": "prompt",
+    "javascript.format.enable": false,
+    "prettier.requireConfig": true,
+    "prettier.tslintIntegration": true,
+    "editor.formatOnSave": true
+}
