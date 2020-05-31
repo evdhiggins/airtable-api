@@ -1,3 +1,5 @@
 export * from './createRecords'
 export * from './listRecords'
+export * from './replaceRecords'
 export * from './retrieveRecord'
+export * from './updateRecords'
