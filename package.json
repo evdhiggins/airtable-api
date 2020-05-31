@@ -17,12 +17,12 @@
     "author": "Evan Higgins <evdhiggins@gmail.com>",
     "license": "MIT",
     "dependencies": {
-        "phin": "^3.4.0"
+        "node-fetch": "^2.6.0"
     },
     "devDependencies": {
         "@types/jest": "^24.0.18",
         "@types/node": "^12.7.4",
-        "@types/phin": "^3.3.0",
+        "@types/node-fetch": "^2.5.7",
         "jest": "^24.9.0",
         "prettier": "^1.18.2",
         "prettier-tslint": "^0.4.2",

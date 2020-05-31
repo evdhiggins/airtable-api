@@ -1,9 +1,17 @@
-import * as phin from 'phin'
+import fetch, { Response } from 'node-fetch'
 import { HttpMethod } from '../types'
 import IRequestCredentials from '../types/IRequestCredentials'
 import { makeApiUrl } from './makeApiUrl'
 import { makeRequestHeaders } from './makeRequestHeaders'
 import { makeQueryString } from './makeQueryString'
+import { Readable } from 'stream'
+import { HttpError } from './HttpError'
+
+const throwErrorIfInvalidHttpStatus = (response: Response) => {
+    if (!response.ok) {
+        throw new HttpError(response.status, response.statusText)
+    }
+}
 
 type Request = {
     method: HttpMethod
@@ -13,24 +21,25 @@ type Request = {
     body?: { [index: string]: any }
 }
 
-async function makeApiRequest({
+async function makeApiRequest<T = any>({
     method,
     credentials,
     recordId,
     query,
     body,
-}: Request): Promise<phin.JsonResponse> {
+}: Request): Promise<T> {
     const urlBase = makeApiUrl(credentials, recordId)
     const url = query ? `${urlBase}?${makeQueryString(query)}` : urlBase
     const headers = makeRequestHeaders(credentials)
-    const response = await phin({
-        url,
+    const readableBody = body ? Readable.from(JSON.stringify(body)) : Readable.from('')
+    const response = await fetch(url, {
+        body: readableBody,
         headers,
         method,
-        data: body,
-        parse: 'json',
     })
-    return response.body
+
+    throwErrorIfInvalidHttpStatus(response)
+    return response.json()
 }
 
 export default makeApiRequest
