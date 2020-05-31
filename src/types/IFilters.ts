@@ -26,6 +26,8 @@ interface IFilter {
      * Must be less than or equal to 100. Default is 100.
      */
     pageSize?: number
+    /** The record ID from which the request results start */
+    offset?: string
     /**
      * An array of sort objects that specifies how the records will be ordered.
      */
