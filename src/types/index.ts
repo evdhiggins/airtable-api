@@ -17,3 +17,5 @@ export enum HttpMethod {
     Post = 'post',
     Put = 'put',
 }
+
+export * from './IRecord'
