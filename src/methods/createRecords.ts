@@ -1,6 +1,6 @@
 import IRequestCredentials from '../types/IRequestCredentials'
 import { Record, HttpMethod, IRecord } from '../types'
-import { makeApiRequest } from '../util'
+import { makeApiRequest, prepareWriteRecords, makeWriteBody } from '../util'
 
 export const createRecords = (credentials: IRequestCredentials) => {
     function create<T extends Record = any>(record: T, typecast?: boolean): Promise<IRecord<T>>
@@ -10,20 +10,10 @@ export const createRecords = (credentials: IRequestCredentials) => {
     ): Promise<Array<IRecord<T>>>
     async function create<T extends Record = any>(
         record: T | T[],
-        typecast = false,
+        typecast?: boolean,
     ): Promise<IRecord<T> | Array<IRecord<T>>> {
-        const isCreateMany = Array.isArray(record)
-        const records = (Array.isArray(record) ? record : [record]).map(r => ({
-            fields: r,
-        }))
-
-        const body: { records: Array<{ fields: T }>; typecast?: true } = {
-            records,
-        }
-
-        if (typecast) {
-            body.typecast = true
-        }
+        const { isMany, records } = prepareWriteRecords(record)
+        const body = makeWriteBody(records, typecast)
 
         const results = await makeApiRequest<Array<IRecord<T>>>({
             method: HttpMethod.Post,
@@ -31,7 +21,7 @@ export const createRecords = (credentials: IRequestCredentials) => {
             body,
         })
 
-        if (isCreateMany) {
+        if (isMany) {
             return results
         }
         return results[0]
