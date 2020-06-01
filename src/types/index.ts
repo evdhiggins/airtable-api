@@ -19,3 +19,4 @@ export enum HttpMethod {
 }
 
 export * from './IRecord'
+export * from './IAirtableApi'

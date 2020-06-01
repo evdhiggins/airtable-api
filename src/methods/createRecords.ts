@@ -1,17 +1,9 @@
 import IRequestCredentials from '../types/IRequestCredentials'
-import { Record, HttpMethod, IRecord } from '../types'
+import { Record, HttpMethod, IRecord, IAirtableApi } from '../types'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody } from '../util'
 
-export const createRecords = (credentials: IRequestCredentials) => {
-    function create<T extends Record = any>(record: T, typecast?: boolean): Promise<IRecord<T>>
-    function create<T extends Record = any>(
-        record: T[],
-        typecast?: boolean,
-    ): Promise<Array<IRecord<T>>>
-    async function create<T extends Record = any>(
-        record: T | T[],
-        typecast?: boolean,
-    ): Promise<IRecord<T> | Array<IRecord<T>>> {
+export const createRecords = (credentials: IRequestCredentials): IAirtableApi['createRecords'] =>
+    async function<T extends Record = any>(record: T | T[], typecast?: boolean): Promise<any> {
         const { isMany, records } = prepareWriteRecords(record)
         const body = makeWriteBody(records, typecast)
 
@@ -26,5 +18,3 @@ export const createRecords = (credentials: IRequestCredentials) => {
         }
         return results[0]
     }
-    return create
-}
