@@ -1,10 +1,10 @@
 import IRequestCredentials from '../types/IRequestCredentials'
-import { Record, HttpMethod } from '../types'
+import { RecordItem, HttpMethod, IAirtableApi } from '../types'
 import { makeApiRequest, HttpError } from '../util'
 import { Errors } from '../types/errors'
 
-export const retrieveRecord = (credentials: IRequestCredentials) =>
-    async function<T extends Record = any>(recordId: string): Promise<T | null> {
+export const retrieveRecord = (credentials: IRequestCredentials): IAirtableApi['retrieveRecord'] =>
+    async function<T extends RecordItem = any>(recordId: string): Promise<T | null> {
         try {
             return makeApiRequest({ method: HttpMethod.Get, credentials, recordId })
         } catch (err) {

@@ -1,10 +1,10 @@
 import IRequestCredentials from '../types/IRequestCredentials'
-import { Record, HttpMethod } from '../types'
+import { RecordItem, HttpMethod, IAirtableApi } from '../types'
 import { IListResults } from '../types/IListResults'
 import { makeApiRequest } from '../util'
 
-export const listRecords = (credentials: IRequestCredentials) =>
-    async function<T extends Record = any>(
+export const listRecords = (credentials: IRequestCredentials): IAirtableApi['listRecords'] =>
+    async function<T extends RecordItem = any>(
         filterStringOrFilters: string | IFilter = {},
     ): Promise<IListResults<T>> {
         const query: IFilter =

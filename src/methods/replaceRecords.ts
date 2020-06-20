@@ -1,3 +1,6 @@
 import { updateRecordsFactory } from './updateRecordsFactory'
+import { AuthorizationWrappedIAirtableFunction } from '../types'
 
-export const replaceRecords = updateRecordsFactory(true)
+export const replaceRecords: AuthorizationWrappedIAirtableFunction<
+    'replaceRecords'
+> = updateRecordsFactory(true)

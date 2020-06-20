@@ -1,11 +1,11 @@
 import IRequestCredentials from '../types/IRequestCredentials'
-import { Record, HttpMethod, IRecord, UpdateRecord, IAirtableApi } from '../types'
+import { RecordItem, HttpMethod, IRecord, UpdateRecord } from '../types'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody } from '../util'
 
 export const updateRecordsFactory = (replaceExistingRecords: boolean) => (
     credentials: IRequestCredentials,
-): IAirtableApi['updateRecords'] =>
-    async function<T extends Record = any>(
+) =>
+    async function<T extends RecordItem = any>(
         recordOrRecords: UpdateRecord<T> | Array<UpdateRecord<T>>,
         typecast?: boolean,
     ): Promise<any> {
