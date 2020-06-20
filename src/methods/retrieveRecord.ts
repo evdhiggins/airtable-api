@@ -2,7 +2,7 @@ import { RecordItem, HttpMethod, IAirtableApi, IRequestCredentials, Errors } fro
 import { makeApiRequest, HttpError } from '../util'
 
 export const retrieveRecord = (credentials: IRequestCredentials): IAirtableApi['retrieveRecord'] =>
-    async function<T extends RecordItem = any>(recordId: string): Promise<T | null> {
+    async function <T extends RecordItem = any>(recordId: string): Promise<T | null> {
         try {
             return makeApiRequest({ method: HttpMethod.Get, credentials, recordId })
         } catch (err) {

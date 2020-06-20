@@ -3,13 +3,13 @@ import { IThrottle, ThrottledFn } from '../types'
 export const getNow = () => +new Date(Date.now())
 
 export const sleepUntil = (timestamp: number) => {
-    return new Promise(res => {
+    return new Promise((res) => {
         const offset = timestamp - getNow()
         return offset > 0 ? setTimeout(res, offset) : res()
     })
 }
 
-export const throttleFactory = (requestsPerDuration: number = 3, duration: number = 1000) => {
+export const throttleFactory = (requestsPerDuration = 3, duration = 1000) => {
     let throttleExpiration = getNow() + duration
     let requestsPerformed = 0
 

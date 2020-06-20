@@ -15,8 +15,8 @@ import {
 import { throttleFactory } from './util/throttle'
 
 export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
-    private readonly credentials: IRequestCredentials;
-    private throttle: IThrottle;
+    private readonly credentials: IRequestCredentials
+    private throttle: IThrottle
 
     constructor(options: IInitOptions) {
         this.credentials = {
@@ -26,24 +26,21 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
         }
 
         if (options.throttleEnabled) {
-            const requestsPerSecond = options?.requestsPerSecond && options.requestsPerSecond > 0 ? options.requestsPerSecond : 4
-            const throttleFn = options?.customThrottle ?? throttleFactory(requestsPerSecond, 1000);
-            this.throttle = throttleFn;
+            const requestsPerSecond =
+                options?.requestsPerSecond && options.requestsPerSecond > 0 ? options.requestsPerSecond : 4
+            const throttleFn = options?.customThrottle ?? throttleFactory(requestsPerSecond, 1000)
+            this.throttle = throttleFn
         } else {
             const throttleStub = (fn: ThrottledFn, ...args: any[]) => {
-                return fn(...args);
+                return fn(...args)
             }
-            this.throttle = throttleStub as IThrottle;
+            this.throttle = throttleStub as IThrottle
         }
-
     }
 
     public createRecords(record: T, typecast?: boolean): Promise<IRecord<T>>
     public createRecords(records: T[], typecast?: boolean): Promise<Array<IRecord<T>>>
-    public createRecords(
-        recordOrRecords: T | T[],
-        typecast?: boolean,
-    ): Promise<IRecord<T> | IRecord<T>[]> {
+    public createRecords(recordOrRecords: T | T[], typecast?: boolean): Promise<IRecord<T> | IRecord<T>[]> {
         return this.throttle(methods.createRecords(this.credentials), recordOrRecords, typecast)
     }
 
@@ -58,10 +55,7 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
     }
 
     public replaceRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<IRecord<T>>
-    public replaceRecords(
-        records: Array<UpdateRecord<T>>,
-        typecast?: boolean,
-    ): Promise<Array<IRecord<T>>>
+    public replaceRecords(records: Array<UpdateRecord<T>>, typecast?: boolean): Promise<Array<IRecord<T>>>
     public replaceRecords(
         recordOrRecords: UpdateRecord<T> | Array<UpdateRecord<T>>,
         typecast?: boolean,
@@ -74,10 +68,7 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
     }
 
     public updateRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<IRecord<T>>
-    public updateRecords(
-        records: Array<UpdateRecord<T>>,
-        typecast?: boolean,
-    ): Promise<Array<IRecord<T>>>
+    public updateRecords(records: Array<UpdateRecord<T>>, typecast?: boolean): Promise<Array<IRecord<T>>>
     public updateRecords(
         recordOrRecords: UpdateRecord<T> | Array<UpdateRecord<T>>,
         typecast?: boolean,

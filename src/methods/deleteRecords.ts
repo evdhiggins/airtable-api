@@ -2,10 +2,10 @@ import { HttpMethod, DeletedRecord, IAirtableApi, IRequestCredentials } from '..
 import { makeApiRequest, prepareWriteRecords } from '../util'
 
 export const deleteRecords = (credentials: IRequestCredentials): IAirtableApi['deleteRecords'] =>
-    async function(ids: string | string[]): Promise<any> {
+    async function (ids: string | string[]): Promise<any> {
         const { isMany, recordSets: idSets } = prepareWriteRecords(ids)
 
-        const promises = idSets.map(set => {
+        const promises = idSets.map((set) => {
             const query = { records: set }
             return makeApiRequest<{ records: DeletedRecord[] }>({
                 method: HttpMethod.Delete,

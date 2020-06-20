@@ -1,16 +1,14 @@
 import { RecordItem, HttpMethod, IRecord, UpdateRecord, IRequestCredentials } from '../types'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody } from '../util'
 
-export const updateRecordsFactory = (replaceExistingRecords: boolean) => (
-    credentials: IRequestCredentials,
-) =>
-    async function<T extends RecordItem = any>(
+export const updateRecordsFactory = (replaceExistingRecords: boolean) => (credentials: IRequestCredentials) =>
+    async function <T extends RecordItem = any>(
         recordOrRecords: UpdateRecord<T> | Array<UpdateRecord<T>>,
         typecast?: boolean,
     ): Promise<any> {
         const { recordSets, isMany } = prepareWriteRecords(recordOrRecords)
 
-        const promises = recordSets.map(set => {
+        const promises = recordSets.map((set) => {
             const body = makeWriteBody(set, typecast)
 
             return makeApiRequest<Array<IRecord<T>>>({

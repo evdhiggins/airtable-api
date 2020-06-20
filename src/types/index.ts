@@ -9,10 +9,7 @@ export interface RecordImage {
     url: string
 }
 
-export type RecordItem = Record<
-    string,
-    string | number | boolean | string[] | RecordAttachment[] | RecordImage[]
->
+export type RecordItem = Record<string, string | number | boolean | string[] | RecordAttachment[] | RecordImage[]>
 
 export enum HttpMethod {
     Delete = 'delete',

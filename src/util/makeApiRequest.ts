@@ -20,13 +20,7 @@ type Request = {
     body?: { [index: string]: any }
 }
 
-export const makeApiRequest = async <T = any>({
-    method,
-    credentials,
-    recordId,
-    query,
-    body,
-}: Request): Promise<T> => {
+export const makeApiRequest = async <T = any>({ method, credentials, recordId, query, body }: Request): Promise<T> => {
     const urlBase = makeApiUrl(credentials, recordId)
     const url = query ? `${urlBase}?${makeQueryString(query)}` : urlBase
     const headers = makeRequestHeaders(credentials)

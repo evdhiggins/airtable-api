@@ -2,10 +2,10 @@ import { RecordItem, HttpMethod, IRecord, IAirtableApi, IRequestCredentials } fr
 import { makeApiRequest, prepareWriteRecords, makeWriteBody } from '../util'
 
 export const createRecords = (credentials: IRequestCredentials): IAirtableApi['createRecords'] =>
-    async function<T extends RecordItem = any>(record: T | T[], typecast?: boolean): Promise<any> {
+    async function <T extends RecordItem = any>(record: T | T[], typecast?: boolean): Promise<any> {
         const { isMany, recordSets } = prepareWriteRecords(record)
 
-        const promises = recordSets.map(set => {
+        const promises = recordSets.map((set) => {
             const body = makeWriteBody(set, typecast)
 
             return makeApiRequest<Array<IRecord<T>>>({

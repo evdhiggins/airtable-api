@@ -169,49 +169,25 @@ describe('throttle', () => {
         })
         describe('When called 9 times without ever exceeding the rate limit', () => {
             test('Call throttled function 9 times', async () => {
-                await Promise.all([
-                    throttle(throttledFn),
-                    throttle(throttledFn),
-                    throttle(throttledFn),
-                ])
+                await Promise.all([throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)])
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
-                await Promise.all([
-                    throttle(throttledFn),
-                    throttle(throttledFn),
-                    throttle(throttledFn),
-                ])
+                await Promise.all([throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)])
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
-                await Promise.all([
-                    throttle(throttledFn),
-                    throttle(throttledFn),
-                    throttle(throttledFn),
-                ])
+                await Promise.all([throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)])
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
                 expect(throttledFn).toHaveBeenCalledTimes(9)
             })
             test('Never call setTimeout', async () => {
-                await Promise.all([
-                    throttle(throttledFn),
-                    throttle(throttledFn),
-                    throttle(throttledFn),
-                ])
+                await Promise.all([throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)])
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
-                await Promise.all([
-                    throttle(throttledFn),
-                    throttle(throttledFn),
-                    throttle(throttledFn),
-                ])
+                await Promise.all([throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)])
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
-                await Promise.all([
-                    throttle(throttledFn),
-                    throttle(throttledFn),
-                    throttle(throttledFn),
-                ])
+                await Promise.all([throttle(throttledFn), throttle(throttledFn), throttle(throttledFn)])
                 jest.advanceTimersByTime(5000)
                 NOW += 5000
                 expect(setTimeout).not.toHaveBeenCalled()

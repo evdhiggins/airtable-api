@@ -1,7 +1,4 @@
-const makeKeyValueString = (
-    key: string,
-    value: string | number | boolean | object | any[],
-): string[] => {
+const makeKeyValueString = (key: string, value: string | number | boolean | object | any[]): string[] => {
     if (Array.isArray(value)) {
         return value.flatMap((v, i) => makeKeyValueString(`${key}[${i}]`, v))
     } else if (typeof value === 'object') {
