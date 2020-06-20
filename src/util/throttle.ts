@@ -1,27 +1,22 @@
-export const now = () => +new Date(Date.now())
+import { IThrottle, ThrottledFn } from '../types'
+
+export const getNow = () => +new Date(Date.now())
 
 export const sleepUntil = (timestamp: number) => {
     return new Promise(res => {
-        const offset = timestamp - now()
+        const offset = timestamp - getNow()
         return offset > 0 ? setTimeout(res, offset) : res()
     })
 }
 
-export default (requestsPerDuration: number = 3, duration: number = 1000) => {
-    let throttleExpiration = now() + duration
+export const throttleFactory = (requestsPerDuration: number = 3, duration: number = 1000) => {
+    let throttleExpiration = getNow() + duration
     let requestsPerformed = 0
 
-    const throttle = async <
-        T extends (...args: any[]) => Promise<any>,
-        A extends unknown[] = T extends (...args: infer X) => Promise<any> ? X : never,
-        R = ReturnType<T>
-    >(
-        fn: T,
-        ...args: A
-    ): Promise<R> => {
-        const currentTimestamp = now()
+    const throttle = async (fn: ThrottledFn, ...args: unknown[]): Promise<unknown> => {
+        const currentTimestamp = getNow()
         if (currentTimestamp >= throttleExpiration) {
-            throttleExpiration = now() + duration
+            throttleExpiration = getNow() + duration
             requestsPerformed = 0
         }
         if (requestsPerformed >= requestsPerDuration) {
@@ -29,9 +24,8 @@ export default (requestsPerDuration: number = 3, duration: number = 1000) => {
             return throttle(fn, ...args)
         }
         requestsPerformed++
-        const result = await fn(...args)
-        return result
+        return fn(...args)
     }
 
-    return throttle
+    return throttle as IThrottle
 }
