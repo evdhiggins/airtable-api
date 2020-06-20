@@ -9,40 +9,33 @@ import {
     IInitOptions,
     IFilter,
     IListResults,
+    IThrottle,
+    ThrottledFn,
 } from './types'
 import { throttleFactory } from './util/throttle'
 
 export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
-    private apiKey: string
-    private baseId: string
-    private tableId: string
-
-    private throttleEnabled: boolean
-    private requestsPerSecond: number
-    private throttle: ReturnType<typeof throttleFactory>
-
-    private get credentials(): IRequestCredentials {
-        return {
-            apiKey: this.apiKey,
-            baseId: this.baseId,
-            tableId: this.tableId,
-        }
-    }
+    private readonly credentials: IRequestCredentials;
+    private throttle: IThrottle;
 
     constructor(options: IInitOptions) {
-        this.apiKey = options.apiKey
-        this.baseId = options.baseId
-        this.tableId = options.tableId
-        this.throttleEnabled = options.throttleEnabled === false ? false : true
-        this.requestsPerSecond = +options.requestsPerSecond > 0 ? +options.requestsPerSecond : 4
-
-        if (this.throttleEnabled) {
-            this.throttle = throttleFactory(this.requestsPerSecond, 1000)
-        } else {
-            this.throttle = (fn, ...args) => {
-                return fn(...args)
-            }
+        this.credentials = {
+            apiKey: options.apiKey,
+            baseId: options.baseId,
+            tableId: options.tableId,
         }
+
+        if (options.throttleEnabled) {
+            const requestsPerSecond = options?.requestsPerSecond && options.requestsPerSecond > 0 ? options.requestsPerSecond : 4
+            const throttleFn = options?.customThrottle ?? throttleFactory(requestsPerSecond, 1000);
+            this.throttle = throttleFn;
+        } else {
+            const throttleStub = (fn: ThrottledFn, ...args: any[]) => {
+                return fn(...args);
+            }
+            this.throttle = throttleStub as IThrottle;
+        }
+
     }
 
     public createRecords(record: T, typecast?: boolean): Promise<IRecord<T>>
