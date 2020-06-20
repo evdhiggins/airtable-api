@@ -1,5 +1,6 @@
 import { RecordItem, IRecord } from '.'
 import { IListResults } from './IListResults'
+import { IFilter } from './IFilters'
 
 export interface DeletedRecord {
     id: string

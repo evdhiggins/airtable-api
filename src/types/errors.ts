@@ -37,5 +37,3 @@ export const SubErrorMessages = {
         [SubErrors[Errors.NotFound].InvalidRecord]: 'Record not found in table',
     },
 }
-
-export default Errors

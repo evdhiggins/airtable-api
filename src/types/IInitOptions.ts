@@ -1,10 +1,17 @@
-import IRequestCredentials from './IRequestCredentials'
+import { IRequestCredentials } from './IRequestCredentials'
+import { IThrottle } from './IThrottle'
 
-interface IInitOptions extends IRequestCredentials {
-    /** Toggle request throttling. Default: true */
-    throttleEnabled: boolean
-    /** The number of requests permitted per second. Default: 4 */
-    requestsPerSecond: number
-}
+type ThrottleOptions =
+    | {
+          throttleEnabled?: false
+      }
+    | {
+          /** Toggle request throttling. Default: true */
+          throttleEnabled: true
+          /** The number of requests permitted per second. Default: 4 */
+          requestsPerSecond?: number
+          /** A custom throttle function to be used for all AirtableApi methods */
+          customThrottle?: IThrottle
+      }
 
-export default IInitOptions
+export type IInitOptions = IRequestCredentials & ThrottleOptions

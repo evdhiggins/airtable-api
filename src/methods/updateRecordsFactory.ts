@@ -1,5 +1,4 @@
-import IRequestCredentials from '../types/IRequestCredentials'
-import { RecordItem, HttpMethod, IRecord, UpdateRecord } from '../types'
+import { RecordItem, HttpMethod, IRecord, UpdateRecord, IRequestCredentials } from '../types'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody } from '../util'
 
 export const updateRecordsFactory = (replaceExistingRecords: boolean) => (

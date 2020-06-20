@@ -1,5 +1,4 @@
-import IRequestCredentials from '../types/IRequestCredentials'
-import { RecordItem, HttpMethod, IRecord, IAirtableApi } from '../types'
+import { RecordItem, HttpMethod, IRecord, IAirtableApi, IRequestCredentials } from '../types'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody } from '../util'
 
 export const createRecords = (credentials: IRequestCredentials): IAirtableApi['createRecords'] =>

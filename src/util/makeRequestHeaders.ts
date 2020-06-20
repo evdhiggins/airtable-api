@@ -1,4 +1,4 @@
-import IRequestCredentials from '../types/IRequestCredentials'
+import { IRequestCredentials } from '../types'
 
 export const makeRequestHeaders = (
     credentials: IRequestCredentials,

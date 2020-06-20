@@ -1,11 +1,10 @@
 import fetch, { Response } from 'node-fetch'
-import { HttpMethod } from '../types'
-import IRequestCredentials from '../types/IRequestCredentials'
 import { makeApiUrl } from './makeApiUrl'
 import { makeRequestHeaders } from './makeRequestHeaders'
 import { makeQueryString } from './makeQueryString'
 import { Readable } from 'stream'
 import { HttpError } from './HttpError'
+import { HttpMethod, IRequestCredentials } from '../types'
 
 const throwErrorIfInvalidHttpStatus = (response: Response) => {
     if (!response.ok) {

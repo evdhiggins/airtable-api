@@ -1,4 +1,4 @@
-import IRequestCredentials from '../../types/IRequestCredentials'
+import { IRequestCredentials } from '../../types'
 import { makeApiUrl } from '../makeApiUrl'
 
 const mockCredentials: IRequestCredentials = {

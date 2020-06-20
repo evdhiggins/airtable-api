@@ -1,4 +1,4 @@
-import IRequestCredentials from '../../types/IRequestCredentials'
+import { IRequestCredentials } from '../../types'
 import { makeRequestHeaders } from '../makeRequestHeaders'
 
 const mockCredentials: IRequestCredentials = {

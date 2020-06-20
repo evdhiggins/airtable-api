@@ -1,9 +1,16 @@
 import * as methods from './methods'
-import { RecordItem, IAirtableApi, DeletedRecord, IRecord, UpdateRecord } from './types'
-import IInitOptions from './types/IInitOptions'
-import throttleFactory from './util/throttle'
-import IRequestCredentials from './types/IRequestCredentials'
-import { IListResults } from './types/IListResults'
+import {
+    RecordItem,
+    IAirtableApi,
+    DeletedRecord,
+    IRecord,
+    UpdateRecord,
+    IRequestCredentials,
+    IInitOptions,
+    IFilter,
+    IListResults,
+} from './types'
+import { throttleFactory } from './util/throttle'
 
 export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
     private apiKey: string

@@ -1,6 +1,11 @@
-import IRequestCredentials from '../types/IRequestCredentials'
-import { RecordItem, HttpMethod, IAirtableApi } from '../types'
-import { IListResults } from '../types/IListResults'
+import {
+    RecordItem,
+    HttpMethod,
+    IAirtableApi,
+    IRequestCredentials,
+    IFilter,
+    IListResults,
+} from '../types'
 import { makeApiRequest } from '../util'
 
 export const listRecords = (credentials: IRequestCredentials): IAirtableApi['listRecords'] =>

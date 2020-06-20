@@ -1,5 +1,5 @@
 import { IAirtableApi } from './IAirtableApi'
-import IRequestCredentials from './IRequestCredentials'
+import { IRequestCredentials } from './IRequestCredentials'
 
 export interface RecordAttachment {
     url: string
@@ -26,5 +26,12 @@ export type AuthorizationWrappedIAirtableFunction<T extends keyof IAirtableApi> 
     credentials: IRequestCredentials,
 ) => IAirtableApi[T]
 
-export * from './IRecord'
+export * from './errors'
 export * from './IAirtableApi'
+export * from './IFilters'
+export * from './IInitOptions'
+export * from './IListResults'
+export * from './IOptions'
+export * from './IRecord'
+export * from './IRequestCredentials'
+export * from './IThrottle'

@@ -1,5 +1,4 @@
-import IRequestCredentials from '../types/IRequestCredentials'
-import { HttpMethod, DeletedRecord, IAirtableApi } from '../types'
+import { HttpMethod, DeletedRecord, IAirtableApi, IRequestCredentials } from '../types'
 import { makeApiRequest } from '../util'
 
 export const deleteRecords = (credentials: IRequestCredentials): IAirtableApi['deleteRecords'] =>
