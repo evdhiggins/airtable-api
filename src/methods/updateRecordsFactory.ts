@@ -8,15 +8,19 @@ export const updateRecordsFactory = (replaceExistingRecords: boolean) => (
         recordOrRecords: UpdateRecord<T> | Array<UpdateRecord<T>>,
         typecast?: boolean,
     ): Promise<any> {
-        const { records, isMany } = prepareWriteRecords(recordOrRecords)
+        const { recordSets, isMany } = prepareWriteRecords(recordOrRecords)
 
-        const body = makeWriteBody(records, typecast)
+        const promises = recordSets.map(set => {
+            const body = makeWriteBody(set, typecast)
 
-        const results = await makeApiRequest<Array<IRecord<T>>>({
-            method: replaceExistingRecords ? HttpMethod.Put : HttpMethod.Patch,
-            credentials,
-            body,
+            return makeApiRequest<Array<IRecord<T>>>({
+                method: replaceExistingRecords ? HttpMethod.Put : HttpMethod.Patch,
+                credentials,
+                body,
+            })
         })
+
+        const results = (await Promise.all(promises)).flat()
 
         if (isMany) {
             return results
