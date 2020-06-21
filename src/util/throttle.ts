@@ -1,15 +1,15 @@
 import { IThrottle, ThrottledFn } from '../types'
 
-export const getNow = () => +new Date(Date.now())
+export const getNow = (): number => +new Date(Date.now())
 
-export const sleepUntil = (timestamp: number) => {
+export const sleepUntil = (timestamp: number): Promise<void> => {
     return new Promise((res) => {
         const offset = timestamp - getNow()
         return offset > 0 ? setTimeout(res, offset) : res()
     })
 }
 
-export const throttleFactory = (requestsPerDuration = 3, duration = 1000) => {
+export const throttleFactory = (requestsPerDuration = 3, duration = 1000): IThrottle => {
     let throttleExpiration = getNow() + duration
     let requestsPerformed = 0
 

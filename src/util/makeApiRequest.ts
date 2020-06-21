@@ -4,7 +4,7 @@ import { makeRequestHeaders } from './makeRequestHeaders'
 import { makeQueryString } from './makeQueryString'
 import { Readable } from 'stream'
 import { HttpError } from './HttpError'
-import { HttpMethod, IRequestCredentials } from '../types'
+import { HttpMethod, IRequestCredentials, JsonType } from '../types'
 
 const throwErrorIfInvalidHttpStatus = (response: Response) => {
     if (!response.ok) {
@@ -16,11 +16,11 @@ type Request = {
     method: HttpMethod
     credentials: IRequestCredentials
     recordId?: string
-    query?: { [index: string]: any }
-    body?: { [index: string]: any }
+    query?: Record<string, JsonType>
+    body?: Record<string, JsonType> | Record<string, JsonType>[]
 }
 
-export const makeApiRequest = async <T = any>({ method, credentials, recordId, query, body }: Request): Promise<T> => {
+export const makeApiRequest = async <T>({ method, credentials, recordId, query, body }: Request): Promise<T> => {
     const urlBase = makeApiUrl(credentials, recordId)
     const url = query ? `${urlBase}?${makeQueryString(query)}` : urlBase
     const headers = makeRequestHeaders(credentials)

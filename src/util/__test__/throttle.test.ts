@@ -75,7 +75,7 @@ describe('throttleFactory', () => {
 
 describe('throttle', () => {
     const callOrder = { order: 0 }
-    const throttledFn = jest.fn(async (...args: any) => {
+    const throttledFn = jest.fn(async () => {
         callOrder.order++
         return callOrder.order
     })

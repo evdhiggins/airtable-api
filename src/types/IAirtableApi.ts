@@ -1,17 +1,16 @@
-import { RecordItem, IRecord } from '.'
-import { IListResults } from './IListResults'
-import { IFilter } from './IFilters'
+import { RecordItem, IRecord, IFilter, IListResults } from '.'
 
 export interface DeletedRecord {
     id: string
     deleted: boolean
 }
 
-export interface UpdateRecord<T> {
+export interface UpdateRecord<T extends RecordItem> {
     recordId: string
     fields: T
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface IAirtableApi<T extends RecordItem = any> {
     createRecords(record: T, typecast?: boolean): Promise<IRecord<T>>
     createRecords(record: T[], typecast?: boolean): Promise<Array<IRecord<T>>>

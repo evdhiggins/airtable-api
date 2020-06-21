@@ -2,9 +2,10 @@ import { RecordItem, HttpMethod, IRecord, UpdateRecord, IRequestCredentials } fr
 import { makeApiRequest, prepareWriteRecords, makeWriteBody } from '../util'
 
 export const updateRecordsFactory = (replaceExistingRecords: boolean) => (credentials: IRequestCredentials) =>
-    async function <T extends RecordItem = any>(
+    async function <T extends RecordItem>(
         recordOrRecords: UpdateRecord<T> | Array<UpdateRecord<T>>,
         typecast?: boolean,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ): Promise<any> {
         const { recordSets, isMany } = prepareWriteRecords(recordOrRecords)
 

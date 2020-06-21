@@ -2,6 +2,7 @@ import { HttpMethod, DeletedRecord, IAirtableApi, IRequestCredentials } from '..
 import { makeApiRequest, prepareWriteRecords } from '../util'
 
 export const deleteRecords = (credentials: IRequestCredentials): IAirtableApi['deleteRecords'] =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async function (ids: string | string[]): Promise<any> {
         const { isMany, recordSets: idSets } = prepareWriteRecords(ids)
 

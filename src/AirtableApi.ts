@@ -31,7 +31,7 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
             const throttleFn = options?.customThrottle ?? throttleFactory(requestsPerSecond, 1000)
             this.throttle = throttleFn
         } else {
-            const throttleStub = (fn: ThrottledFn, ...args: any[]) => {
+            const throttleStub = (fn: ThrottledFn, ...args: unknown[]) => {
                 return fn(...args)
             }
             this.throttle = throttleStub as IThrottle

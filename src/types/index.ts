@@ -9,6 +9,8 @@ export interface RecordImage {
     url: string
 }
 
+export type JsonType = string | number | boolean | null | JsonType[] | { [key: string]: JsonType }
+
 export type RecordItem = Record<string, string | number | boolean | string[] | RecordAttachment[] | RecordImage[]>
 
 export enum HttpMethod {

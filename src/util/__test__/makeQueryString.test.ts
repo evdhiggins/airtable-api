@@ -19,3 +19,8 @@ test('Prepare proper query string from deeply nested combination of arrays and o
     const queryString = makeQueryString({ one: [{ two: { three: [{ four: 4 }] } }] })
     expect(queryString).toBe('one%5B0%5D%5Btwo%5D%5Bthree%5D%5B0%5D%5Bfour%5D=4')
 })
+
+test('Only include key if value is `null`', () => {
+    const queryString = makeQueryString({ field1: null, field2: 'value2' })
+    expect(queryString).toBe('field1=&field2=value2')
+})
