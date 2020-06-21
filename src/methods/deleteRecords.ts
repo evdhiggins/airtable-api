@@ -1,18 +1,21 @@
-import { HttpMethod, DeletedRecord, IAirtableApi, IRequestCredentials } from '../types'
+import { HttpMethod, DeletedRecord, IRequestCredentials, MethodThrottleArg } from '../types'
 import { makeApiRequest, prepareWriteRecords } from '../util'
+import { parseThrottleArg } from '../util/throttle'
 
-export const deleteRecords = (credentials: IRequestCredentials): IAirtableApi['deleteRecords'] =>
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const deleteRecords = (credentials: IRequestCredentials, throttleArg?: MethodThrottleArg) => {
+    const throttle = parseThrottleArg(throttleArg, credentials)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    async function (ids: string | string[]): Promise<any> {
+    return async function (ids: string | string[]): Promise<any> {
         const { isMany, recordSets: idSets } = prepareWriteRecords(ids)
 
         const promises = idSets.map((set) => {
             const query = { records: set }
-            return makeApiRequest<{ records: DeletedRecord[] }>({
+            return throttle(makeApiRequest, {
                 method: HttpMethod.Delete,
                 credentials,
                 query,
-            })
+            }) as Promise<{ records: DeletedRecord[] }>
         })
 
         const results = (await Promise.all(promises)).reduce((acc, deletedRecord) => {
@@ -24,3 +27,4 @@ export const deleteRecords = (credentials: IRequestCredentials): IAirtableApi['d
         }
         return results.records[0]
     }
+}

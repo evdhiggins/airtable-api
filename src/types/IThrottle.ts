@@ -1,5 +1,7 @@
 export type ThrottledFn = (...args: unknown[]) => Promise<unknown>
 
+export type MethodThrottleArg = IThrottle | null | undefined | false
+
 export interface IThrottle {
     <
         FnType extends ThrottledFn = ThrottledFn,

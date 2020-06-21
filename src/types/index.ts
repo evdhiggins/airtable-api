@@ -1,6 +1,3 @@
-import { IAirtableApi } from './IAirtableApi'
-import { IRequestCredentials } from './IRequestCredentials'
-
 export interface RecordAttachment {
     url: string
 }
@@ -20,10 +17,6 @@ export enum HttpMethod {
     Post = 'post',
     Put = 'put',
 }
-
-export type AuthorizationWrappedIAirtableFunction<T extends keyof IAirtableApi> = (
-    credentials: IRequestCredentials,
-) => IAirtableApi[T]
 
 export * from './errors'
 export * from './IAirtableApi'

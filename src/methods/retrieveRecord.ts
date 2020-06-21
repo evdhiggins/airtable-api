@@ -1,10 +1,15 @@
-import { RecordItem, HttpMethod, IAirtableApi, IRequestCredentials, Errors } from '../types'
+import { RecordItem, HttpMethod, IAirtableApi, IRequestCredentials, Errors, MethodThrottleArg } from '../types'
 import { makeApiRequest, HttpError } from '../util'
+import { parseThrottleArg } from '../util/throttle'
 
-export const retrieveRecord = (credentials: IRequestCredentials): IAirtableApi['retrieveRecord'] =>
-    async function <T extends RecordItem>(recordId: string): Promise<T | null> {
+export const retrieveRecord = (
+    credentials: IRequestCredentials,
+    throttleArg?: MethodThrottleArg,
+): IAirtableApi['retrieveRecord'] => {
+    const throttle = parseThrottleArg(throttleArg, credentials)
+    return async function <T extends RecordItem>(recordId: string): Promise<T | null> {
         try {
-            return makeApiRequest({ method: HttpMethod.Get, credentials, recordId })
+            return throttle(makeApiRequest, { method: HttpMethod.Get, credentials, recordId }) as Promise<T>
         } catch (err) {
             if (err instanceof HttpError && err.statusCode === Errors.NotFound) {
                 return null
@@ -12,3 +17,4 @@ export const retrieveRecord = (credentials: IRequestCredentials): IAirtableApi['
             throw err
         }
     }
+}

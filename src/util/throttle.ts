@@ -1,4 +1,4 @@
-import { IThrottle, ThrottledFn } from '../types'
+import { IThrottle, ThrottledFn, MethodThrottleArg, IRequestCredentials } from '../types'
 
 export const getNow = (): number => +new Date(Date.now())
 
@@ -9,6 +9,23 @@ export const sleepUntil = (timestamp: number): Promise<void> => {
     })
 }
 
+const throttlesByApiKey = new Map<string, IThrottle>()
+
+/** Return an existing throttle for a given key if it already exists, otherwise create and return a new throttle method */
+export const getThrottleForKey = (key: string): IThrottle => {
+    const existingThrottle = throttlesByApiKey.get(key)
+    if (existingThrottle) {
+        return existingThrottle
+    }
+    const throttle = throttleFactory(5, 1000)
+    throttlesByApiKey.set(key, throttle)
+    return throttle
+}
+
+/** A pass-through stub of IThrottle */
+export const throttleStub = ((throttledFn: ThrottledFn, ...args: unknown[]) => throttledFn(...args)) as IThrottle
+
+/** Return an IThrottle method for the given requestsPerDuration / duration inputs */
 export const throttleFactory = (requestsPerDuration = 3, duration = 1000): IThrottle => {
     let throttleExpiration = getNow() + duration
     let requestsPerformed = 0
@@ -28,4 +45,14 @@ export const throttleFactory = (requestsPerDuration = 3, duration = 1000): IThro
     }
 
     return throttle as IThrottle
+}
+
+export const parseThrottleArg = (arg: MethodThrottleArg, credentials: IRequestCredentials): IThrottle => {
+    if (arg === undefined || arg === null) {
+        return getThrottleForKey(credentials.apiKey)
+    }
+    if (arg === false) {
+        return throttleStub
+    }
+    return arg
 }

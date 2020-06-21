@@ -1,19 +1,24 @@
-import { RecordItem, HttpMethod, IRecord, IAirtableApi, IRequestCredentials } from '../types'
+import { RecordItem, HttpMethod, IRecord, IAirtableApi, IRequestCredentials, MethodThrottleArg } from '../types'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody } from '../util'
+import { parseThrottleArg } from '../util/throttle'
 
-export const createRecords = (credentials: IRequestCredentials): IAirtableApi['createRecords'] =>
+export const createRecords = (
+    credentials: IRequestCredentials,
+    throttleArg?: MethodThrottleArg,
+): IAirtableApi['createRecords'] => {
+    const throttle = parseThrottleArg(throttleArg, credentials)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    async function <T extends RecordItem>(record: T | T[], typecast?: boolean): Promise<any> {
+    return async function <T extends RecordItem>(record: T | T[], typecast?: boolean): Promise<any> {
         const { isMany, recordSets } = prepareWriteRecords(record)
 
         const promises = recordSets.map((set) => {
             const body = makeWriteBody(set, typecast)
 
-            return makeApiRequest<Array<IRecord<T>>>({
+            return throttle(makeApiRequest, {
                 method: HttpMethod.Post,
                 credentials,
                 body,
-            })
+            }) as Promise<Array<IRecord<T>>>
         })
 
         const results = (await Promise.all(promises)).flat()
@@ -23,3 +28,4 @@ export const createRecords = (credentials: IRequestCredentials): IAirtableApi['c
         }
         return results[0]
     }
+}
