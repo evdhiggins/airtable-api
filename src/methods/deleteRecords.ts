@@ -1,6 +1,5 @@
 import { HttpMethod, DeletedRecord, IRequestCredentials, MethodThrottleArg } from '../types'
-import { makeApiRequest, prepareWriteRecords } from '../util'
-import { parseThrottleArg } from '../util/throttle'
+import { makeApiRequest, prepareWriteRecords, parseThrottleArg } from '../util'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const deleteRecords = (credentials: IRequestCredentials, throttleArg?: MethodThrottleArg) => {

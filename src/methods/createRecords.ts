@@ -1,6 +1,5 @@
 import { RecordItem, HttpMethod, IRecord, IAirtableApi, IRequestCredentials, MethodThrottleArg } from '../types'
-import { makeApiRequest, prepareWriteRecords, makeWriteBody } from '../util'
-import { parseThrottleArg } from '../util/throttle'
+import { makeApiRequest, prepareWriteRecords, makeWriteBody, parseThrottleArg } from '../util'
 
 export const createRecords = (
     credentials: IRequestCredentials,

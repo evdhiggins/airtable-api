@@ -11,7 +11,7 @@ import {
     IListResults,
     IThrottle,
 } from './types'
-import { throttleFactory, throttleStub } from './util/throttle'
+import { throttleFactory, throttleStub } from './util'
 
 export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
     private readonly credentials: IRequestCredentials

@@ -8,8 +8,7 @@ import {
     JsonType,
     MethodThrottleArg,
 } from '../types'
-import { makeApiRequest } from '../util'
-import { parseThrottleArg } from '../util/throttle'
+import { makeApiRequest, parseThrottleArg } from '../util'
 
 export const listRecords = (
     credentials: IRequestCredentials,

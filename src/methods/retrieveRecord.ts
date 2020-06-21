@@ -1,6 +1,5 @@
 import { RecordItem, HttpMethod, IAirtableApi, IRequestCredentials, Errors, MethodThrottleArg } from '../types'
-import { makeApiRequest, HttpError } from '../util'
-import { parseThrottleArg } from '../util/throttle'
+import { makeApiRequest, HttpError, parseThrottleArg } from '../util'
 
 export const retrieveRecord = (
     credentials: IRequestCredentials,

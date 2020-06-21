@@ -1,5 +1,5 @@
 import { RecordItem, UpdateRecord, IRequestCredentials, MethodThrottleArg } from '../types'
-import { parseThrottleArg } from '../util/throttle'
+import { parseThrottleArg } from '../util'
 import { updateOrReplaceRecords } from './updateOrReplaceRecords'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
