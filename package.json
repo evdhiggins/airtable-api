@@ -1,11 +1,12 @@
 {
     "name": "@evdhiggins/airtable-api",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "",
     "main": "built/index.js",
     "scripts": {
         "build": "tsc -p .",
         "lint": "eslint '*/**/*.{js,ts}' --quiet --fix",
+        "prepublish": "rm -rf ./built && npm run build",
         "test": "jest",
         "test:integration": "jest integration/*",
         "test:unit": "jest unit/*"
