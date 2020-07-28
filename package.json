@@ -1,6 +1,6 @@
 {
     "name": "@evdhiggins/airtable-api",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "",
     "main": "built/index.js",
     "scripts": {

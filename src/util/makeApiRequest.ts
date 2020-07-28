@@ -1,6 +1,6 @@
 import fetch, { Response } from 'node-fetch'
 import { Readable } from 'stream'
-import { HttpMethod, IRequestCredentials, JsonType } from '../types'
+import { HttpMethod, RequestCredentials, JsonType } from '../types'
 import { makeApiUrl, makeQueryString, makeRequestHeaders, HttpError } from '.'
 
 const throwErrorIfInvalidHttpStatus = (response: Response) => {
@@ -11,7 +11,7 @@ const throwErrorIfInvalidHttpStatus = (response: Response) => {
 
 type Request = {
     method: HttpMethod
-    credentials: IRequestCredentials
+    credentials: RequestCredentials
     recordId?: string
     query?: Record<string, JsonType>
     body?: Record<string, JsonType> | Record<string, JsonType>[]

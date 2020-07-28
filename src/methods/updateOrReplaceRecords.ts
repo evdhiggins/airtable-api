@@ -1,9 +1,9 @@
-import { RecordItem, HttpMethod, IRecord, UpdateRecord, IRequestCredentials, IThrottle } from '../types'
+import { RecordItem, HttpMethod, Record, UpdateRecord, RequestCredentials, IThrottle } from '../types'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody } from '../util'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function updateOrReplaceRecords<T extends RecordItem>(
-    credentials: IRequestCredentials,
+    credentials: RequestCredentials,
     throttle: IThrottle,
     replaceExistingRecords: boolean,
     recordOrRecords: UpdateRecord<T> | Array<UpdateRecord<T>>,
@@ -19,7 +19,7 @@ export async function updateOrReplaceRecords<T extends RecordItem>(
             method: replaceExistingRecords ? HttpMethod.Put : HttpMethod.Patch,
             credentials,
             body,
-        }) as Promise<Array<IRecord<T>>>
+        }) as Promise<Array<Record<T>>>
     })
 
     const results = (await Promise.all(promises)).flat()

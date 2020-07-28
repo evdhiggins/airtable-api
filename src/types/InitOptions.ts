@@ -1,4 +1,4 @@
-import { IRequestCredentials } from './IRequestCredentials'
+import { RequestCredentials } from './RequestCredentials'
 import { IThrottle } from './IThrottle'
 
 type ThrottleOptions =
@@ -14,4 +14,4 @@ type ThrottleOptions =
           customThrottle?: IThrottle
       }
 
-export type IInitOptions = IRequestCredentials & ThrottleOptions
+export type InitOptions = RequestCredentials & ThrottleOptions

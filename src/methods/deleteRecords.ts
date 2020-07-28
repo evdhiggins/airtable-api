@@ -1,8 +1,8 @@
-import { HttpMethod, DeletedRecord, IRequestCredentials, MethodThrottleArg } from '../types'
+import { HttpMethod, DeletedRecord, RequestCredentials, MethodThrottleArg } from '../types'
 import { makeApiRequest, prepareWriteRecords, parseThrottleArg } from '../util'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const deleteRecords = (credentials: IRequestCredentials, throttleArg?: MethodThrottleArg) => {
+export const deleteRecords = (credentials: RequestCredentials, throttleArg?: MethodThrottleArg) => {
     const throttle = parseThrottleArg(throttleArg, credentials)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return async function (ids: string | string[]): Promise<any> {

@@ -2,23 +2,21 @@ import {
     RecordItem,
     HttpMethod,
     IAirtableApi,
-    IRequestCredentials,
-    IFilter,
-    IListResults,
+    RequestCredentials,
+    Filter,
+    ListResults,
     JsonType,
     MethodThrottleArg,
 } from '../types'
 import { makeApiRequest, parseThrottleArg } from '../util'
 
-export const listRecords = (
-    credentials: IRequestCredentials,
+export const listRecords = <T extends RecordItem>(
+    credentials: RequestCredentials,
     throttleArg?: MethodThrottleArg,
-): IAirtableApi['listRecords'] => {
+): IAirtableApi<T>['listRecords'] => {
     const throttle = parseThrottleArg(throttleArg, credentials)
-    return async function <T extends RecordItem>(
-        filterStringOrFilters: string | IFilter = {},
-    ): Promise<IListResults<T>> {
-        const query: IFilter =
+    return async function (filterStringOrFilters: string | Filter = {}): Promise<ListResults<T>> {
+        const query: Filter =
             typeof filterStringOrFilters === 'string'
                 ? { filterByFormula: filterStringOrFilters }
                 : filterStringOrFilters

@@ -1,4 +1,4 @@
-import { RecordItem, IRecord, IFilter, IListResults } from '.'
+import { RecordItem, Record, Filter, ListResults } from '.'
 
 export interface DeletedRecord {
     id: string
@@ -12,14 +12,14 @@ export interface UpdateRecord<T extends RecordItem> {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface IAirtableApi<T extends RecordItem = any> {
-    createRecords(record: T, typecast?: boolean): Promise<IRecord<T>>
-    createRecords(record: T[], typecast?: boolean): Promise<Array<IRecord<T>>>
+    createRecords(record: T, typecast?: boolean): Promise<Record<T>>
+    createRecords(record: T[], typecast?: boolean): Promise<Array<Record<T>>>
     deleteRecords(id: string): Promise<DeletedRecord>
     deleteRecords(ids: string[]): Promise<DeletedRecord[]>
-    listRecords(filterStringOrFilters?: string | IFilter): Promise<IListResults<T>>
-    replaceRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<IRecord<T>>
-    replaceRecords(records: Array<UpdateRecord<T>>, typecast?: boolean): Promise<Array<IRecord<T>>>
+    listRecords(filterStringOrFilters?: string | Filter): Promise<ListResults<T>>
+    replaceRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<Record<T>>
+    replaceRecords(records: Array<UpdateRecord<T>>, typecast?: boolean): Promise<Array<Record<T>>>
     retrieveRecord(recordId: string): Promise<T | null>
-    updateRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<IRecord<T>>
-    updateRecords(records: Array<UpdateRecord<T>>, typecast?: boolean): Promise<Array<IRecord<T>>>
+    updateRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<Record<T>>
+    updateRecords(records: Array<UpdateRecord<T>>, typecast?: boolean): Promise<Array<Record<T>>>
 }

@@ -1,4 +1,4 @@
-export interface IRequestCredentials {
+export interface RequestCredentials {
     /** The Airtable API key of the request */
     apiKey: string
     /** The base ID for the request */

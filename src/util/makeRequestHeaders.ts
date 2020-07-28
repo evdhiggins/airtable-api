@@ -1,5 +1,5 @@
-import { IRequestCredentials } from '../types'
+import { RequestCredentials } from '../types'
 
-export const makeRequestHeaders = (credentials: IRequestCredentials): { [index: string]: string } => ({
+export const makeRequestHeaders = (credentials: RequestCredentials): { [index: string]: string } => ({
     Authorization: `Bearer ${credentials.apiKey}`,
 })

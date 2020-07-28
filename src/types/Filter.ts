@@ -1,4 +1,4 @@
-export interface IFilter {
+export interface Filter {
     /** An array of column names to be included in returned data */
     fields?: string[]
     /**

@@ -1,4 +1,4 @@
-export interface IRecord<T> {
+export interface Record<T> {
     id: string
     createdTime: string
     fields: T

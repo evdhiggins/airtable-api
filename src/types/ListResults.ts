@@ -1,4 +1,4 @@
-export interface IListResults<T> {
+export interface ListResults<T> {
     /** The records returned in this `listRecords` request **/
     records: T[]
     /**
@@ -9,5 +9,5 @@ export interface IListResults<T> {
      */
     offset?: string
     /** Defined if there are more records (if `offset` is defined). Returns the next set of records available */
-    nextPage?: () => Promise<IListResults<T>>
+    nextPage?: () => Promise<ListResults<T>>
 }
