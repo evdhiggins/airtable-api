@@ -1,2 +1,11 @@
 node_modules
 *.env
+src
+test
+.vscode
+.nvmrc
+.pretierrc.js
+sample.env
+.eslintrc.js
+.eslintignore
+.npmrc

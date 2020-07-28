@@ -1,6 +1,6 @@
 {
-    "name": "airtable-api",
-    "version": "0.0.1",
+    "name": "@evdhiggins/airtable-api",
+    "version": "0.0.2",
     "description": "",
     "main": "built/index.js",
     "scripts": {
@@ -16,6 +16,7 @@
     ],
     "author": "Evan Higgins <evdhiggins@gmail.com>",
     "license": "MIT",
+    "repository": "git://github.com/evdhiggins/airtable-api.git",
     "dependencies": {
         "node-fetch": "^2.6.0"
     },
@@ -40,5 +41,8 @@
         "transform": {
             "^.+\\.js$": "babel-jest"
         }
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
     }
 }
