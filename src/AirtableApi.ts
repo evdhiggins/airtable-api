@@ -37,7 +37,7 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
     public createRecords(record: T, typecast?: boolean): Promise<Record<T>>
     public createRecords(records: T[], typecast?: boolean): Promise<Array<Record<T>>>
     public createRecords(recordOrRecords: T | T[], typecast?: boolean): Promise<Record<T> | Record<T>[]> {
-        return methods.createRecords(this.credentials, this.throttle)(recordOrRecords, typecast)
+        return methods.createRecords<T>(this.credentials, this.throttle)(recordOrRecords as T, typecast)
     }
 
     public deleteRecords(id: string): Promise<DeletedRecord>
@@ -47,7 +47,7 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
     }
 
     public listRecords(filterStringOrFilters?: string | Filter): Promise<ListResults<T>> {
-        return methods.listRecords(this.credentials, this.throttle)(filterStringOrFilters)
+        return methods.listRecords<T>(this.credentials, this.throttle)(filterStringOrFilters)
     }
 
     public replaceRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<Record<T>>
@@ -60,7 +60,7 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
     }
 
     public retrieveRecord(recordId: string): Promise<T | null> {
-        return methods.retrieveRecord(this.credentials, this.throttle)(recordId)
+        return methods.retrieveRecord<T>(this.credentials, this.throttle)(recordId)
     }
 
     public updateRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<Record<T>>
