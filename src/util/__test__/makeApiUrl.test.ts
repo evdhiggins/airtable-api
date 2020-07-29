@@ -1,7 +1,7 @@
-import { IRequestCredentials } from '../../types'
+import { RequestCredentials } from '../../types'
 import { makeApiUrl } from '../makeApiUrl'
 
-const mockCredentials: IRequestCredentials = {
+const mockCredentials: RequestCredentials = {
     baseId: 'baseId',
     tableId: 'tableId',
     apiKey: '',
