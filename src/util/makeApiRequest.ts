@@ -21,7 +21,7 @@ export const makeApiRequest = async <T>({ method, credentials, recordId, query, 
     const urlBase = makeApiUrl(credentials, recordId)
     const url = query ? `${urlBase}?${makeQueryString(query)}` : urlBase
     const headers = makeRequestHeaders(credentials)
-    const readableBody = body ? Readable.from(JSON.stringify(body)) : Readable.from('')
+    const readableBody = body ? Readable.from(JSON.stringify(body)) : undefined
     const response = await fetch(url, {
         body: readableBody,
         headers,
