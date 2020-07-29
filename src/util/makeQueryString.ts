@@ -1,5 +1,14 @@
 import { JsonType } from '../types'
 
+const encode = (input: string | number | boolean) =>
+    encodeURIComponent(input)
+        .replace(/\(/g, '%28')
+        .replace(/\)/g, '%29')
+        .replace(/\!/g, '%21')
+        .replace(/\'/g, '%27')
+        .replace(/\*/g, '%2A')
+        .replace(/\~/g, '%7E')
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const makeKeyValueString = (key: string, value: JsonType): string[] => {
     if (value === null) {
@@ -9,7 +18,7 @@ const makeKeyValueString = (key: string, value: JsonType): string[] => {
     } else if (typeof value === 'object') {
         return Object.entries(value).flatMap(([k, v]) => makeKeyValueString(`${key}[${k}]`, v))
     }
-    return [`${encodeURIComponent(key)}=${encodeURIComponent(value)}`]
+    return [`${encode(key)}=${encode(value)}`]
 }
 
 export const makeQueryString = (params: { [index: string]: JsonType }): string =>

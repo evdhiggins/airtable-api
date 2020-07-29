@@ -24,3 +24,8 @@ test('Only include key if value is `null`', () => {
     const queryString = makeQueryString({ field1: null, field2: 'value2' })
     expect(queryString).toBe('field1=&field2=value2')
 })
+
+test('Encode special characters not encoded by encodeURIComponent', () => {
+    const queryString = makeQueryString({ field: "()!'*~" })
+    expect(queryString).toBe('field=%28%29%21%27%2A%7E')
+})
