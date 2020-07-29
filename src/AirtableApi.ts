@@ -3,7 +3,7 @@ import {
     RecordItem,
     IAirtableApi,
     DeletedRecord,
-    Record,
+    AirtableRecord,
     UpdateRecord,
     RequestCredentials,
     InitOptions,
@@ -34,9 +34,12 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
         }
     }
 
-    public createRecords(record: T, typecast?: boolean): Promise<Record<T>>
-    public createRecords(records: T[], typecast?: boolean): Promise<Array<Record<T>>>
-    public createRecords(recordOrRecords: T | T[], typecast?: boolean): Promise<Record<T> | Record<T>[]> {
+    public createRecords(record: T, typecast?: boolean): Promise<AirtableRecord<T>>
+    public createRecords(records: T[], typecast?: boolean): Promise<Array<AirtableRecord<T>>>
+    public createRecords(
+        recordOrRecords: T | T[],
+        typecast?: boolean,
+    ): Promise<AirtableRecord<T> | AirtableRecord<T>[]> {
         return methods.createRecords<T>(this.credentials, this.throttle)(recordOrRecords as T, typecast)
     }
 
@@ -50,25 +53,25 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
         return methods.listRecords<T>(this.credentials, this.throttle)(filterStringOrFilters)
     }
 
-    public replaceRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<Record<T>>
-    public replaceRecords(records: Array<UpdateRecord<T>>, typecast?: boolean): Promise<Array<Record<T>>>
+    public replaceRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<AirtableRecord<T>>
+    public replaceRecords(records: Array<UpdateRecord<T>>, typecast?: boolean): Promise<Array<AirtableRecord<T>>>
     public replaceRecords(
         recordOrRecords: UpdateRecord<T> | Array<UpdateRecord<T>>,
         typecast?: boolean,
-    ): Promise<Record<T>[] | Record<T>> {
+    ): Promise<AirtableRecord<T>[] | AirtableRecord<T>> {
         return methods.replaceRecords(this.credentials, this.throttle)(recordOrRecords, typecast)
     }
 
-    public retrieveRecord(recordId: string): Promise<T | null> {
+    public retrieveRecord(recordId: string): Promise<AirtableRecord<T> | null> {
         return methods.retrieveRecord<T>(this.credentials, this.throttle)(recordId)
     }
 
-    public updateRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<Record<T>>
-    public updateRecords(records: Array<UpdateRecord<T>>, typecast?: boolean): Promise<Array<Record<T>>>
+    public updateRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<AirtableRecord<T>>
+    public updateRecords(records: Array<UpdateRecord<T>>, typecast?: boolean): Promise<Array<AirtableRecord<T>>>
     public updateRecords(
         recordOrRecords: UpdateRecord<T> | Array<UpdateRecord<T>>,
         typecast?: boolean,
-    ): Promise<Record<T> | Record<T>[]> {
+    ): Promise<AirtableRecord<T> | AirtableRecord<T>[]> {
         return methods.updateRecords(this.credentials, this.throttle)(recordOrRecords, typecast)
     }
 }

@@ -1,4 +1,4 @@
-import { RecordItem, HttpMethod, Record, IAirtableApi, RequestCredentials, MethodThrottleArg } from '../types'
+import { RecordItem, HttpMethod, AirtableRecord, IAirtableApi, RequestCredentials, MethodThrottleArg } from '../types'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody, parseThrottleArg } from '../util'
 
 export const createRecords = <T extends RecordItem>(
@@ -17,7 +17,7 @@ export const createRecords = <T extends RecordItem>(
                 method: HttpMethod.Post,
                 credentials,
                 body,
-            }) as Promise<Array<Record<T>>>
+            }) as Promise<Array<AirtableRecord<T>>>
         })
 
         const results = (await Promise.all(promises)).flat()

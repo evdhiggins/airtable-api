@@ -1,6 +1,8 @@
+import { AirtableRecord } from '.'
+
 export interface ListResults<T> {
     /** The records returned in this `listRecords` request **/
-    records: T[]
+    records: AirtableRecord<T>[]
     /**
      * `offset` will be defined if there are more records. To fetch the next page of records, include offset in the next request's parameters,
      * or call `IListResults.nextPage()`.

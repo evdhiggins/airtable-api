@@ -5,6 +5,7 @@ import {
     RequestCredentials,
     Filter,
     ListResults,
+    AirtableRecord,
     JsonType,
     MethodThrottleArg,
 } from '../types'
@@ -25,9 +26,9 @@ export const listRecords = <T extends RecordItem>(
             method: HttpMethod.Get,
             credentials,
             query: query as Record<string, JsonType>,
-        })) as { records: T[]; offset?: string }
+        })) as { records: AirtableRecord<T>[]; offset?: string }
 
-        const records: T[] = results.records
+        const records: AirtableRecord<T>[] = results.records
         const offset = results.offset
         const nextPage = offset ? listRecords(credentials).bind(null, { ...query, offset }) : undefined
 

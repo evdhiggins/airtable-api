@@ -1,4 +1,4 @@
-import { RecordItem, HttpMethod, Record, UpdateRecord, RequestCredentials, IThrottle } from '../types'
+import { RecordItem, HttpMethod, AirtableRecord, UpdateRecord, RequestCredentials, IThrottle } from '../types'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody } from '../util'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -19,7 +19,7 @@ export async function updateOrReplaceRecords<T extends RecordItem>(
             method: replaceExistingRecords ? HttpMethod.Put : HttpMethod.Patch,
             credentials,
             body,
-        }) as Promise<Array<Record<T>>>
+        }) as Promise<Array<AirtableRecord<T>>>
     })
 
     const results = (await Promise.all(promises)).flat()
