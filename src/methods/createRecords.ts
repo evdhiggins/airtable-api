@@ -11,7 +11,8 @@ export const createRecords = <T extends RecordItem>(
         const { isMany, recordSets } = prepareWriteRecords(record)
 
         const promises = recordSets.map((set) => {
-            const body = makeWriteBody(set, typecast)
+            const setWithFields = set.map((fields) => ({ fields }))
+            const body = makeWriteBody(setWithFields, typecast)
 
             return throttle(makeApiRequest, {
                 method: HttpMethod.Post,
