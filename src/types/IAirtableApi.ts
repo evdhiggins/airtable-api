@@ -1,7 +1,7 @@
 import { RecordItem, AirtableRecord, Filter, ListResults } from '.'
 import { CreatedRecord, DeletedRecord, UpdatedRecord } from './recordTypes'
 
-export interface UpdateRecord<T> {
+export interface RecordToUpdate<T> {
     id: string
     fields: T
 }
@@ -13,9 +13,9 @@ export interface IAirtableApi<T extends RecordItem = any> {
     deleteRecords(id: string): Promise<DeletedRecord>
     deleteRecords(ids: string[]): Promise<DeletedRecord[]>
     listRecords(filterStringOrFilters?: string | Filter): Promise<ListResults<T>>
-    replaceRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<UpdatedRecord<T> | null>
-    replaceRecords(records: Array<UpdateRecord<T>>, typecast?: boolean): Promise<Array<UpdatedRecord<T>>>
+    replaceRecords(record: RecordToUpdate<T>, typecast?: boolean): Promise<UpdatedRecord<T> | null>
+    replaceRecords(records: Array<RecordToUpdate<T>>, typecast?: boolean): Promise<Array<UpdatedRecord<T>>>
     retrieveRecord(recordId: string): Promise<AirtableRecord<T> | null>
-    updateRecords(record: UpdateRecord<Partial<T>>, typecast?: boolean): Promise<UpdatedRecord<T> | null>
-    updateRecords(records: Array<UpdateRecord<Partial<T>>>, typecast?: boolean): Promise<Array<UpdatedRecord<T>>>
+    updateRecords(record: RecordToUpdate<Partial<T>>, typecast?: boolean): Promise<UpdatedRecord<T> | null>
+    updateRecords(records: Array<RecordToUpdate<Partial<T>>>, typecast?: boolean): Promise<Array<UpdatedRecord<T>>>
 }

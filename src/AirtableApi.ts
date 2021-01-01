@@ -4,7 +4,7 @@ import {
     IAirtableApi,
     DeletedRecord,
     AirtableRecord,
-    UpdateRecord,
+    RecordToUpdate,
     RequestCredentials,
     InitOptions,
     Filter,
@@ -51,10 +51,10 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
         return methods.listRecords<T>(this.credentials, this.throttle)(filterStringOrFilters)
     }
 
-    public replaceRecords(record: UpdateRecord<T>, typecast?: boolean): Promise<UpdatedRecord<T> | null>
-    public replaceRecords(records: Array<UpdateRecord<T>>, typecast?: boolean): Promise<Array<UpdatedRecord<T>>>
+    public replaceRecords(record: RecordToUpdate<T>, typecast?: boolean): Promise<UpdatedRecord<T> | null>
+    public replaceRecords(records: Array<RecordToUpdate<T>>, typecast?: boolean): Promise<Array<UpdatedRecord<T>>>
     public replaceRecords(
-        recordOrRecords: UpdateRecord<T> | Array<UpdateRecord<T>>,
+        recordOrRecords: RecordToUpdate<T> | Array<RecordToUpdate<T>>,
         typecast?: boolean,
     ): Promise<UpdatedRecord<T>[] | UpdatedRecord<T> | null> {
         return methods.replaceRecords(this.credentials, this.throttle)(recordOrRecords, typecast)
@@ -64,10 +64,13 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
         return methods.retrieveRecord<T>(this.credentials, this.throttle)(recordId)
     }
 
-    public updateRecords(record: UpdateRecord<Partial<T>>, typecast?: boolean): Promise<UpdatedRecord<T> | null>
-    public updateRecords(records: Array<UpdateRecord<Partial<T>>>, typecast?: boolean): Promise<Array<UpdatedRecord<T>>>
+    public updateRecords(record: RecordToUpdate<Partial<T>>, typecast?: boolean): Promise<UpdatedRecord<T> | null>
     public updateRecords(
-        recordOrRecords: UpdateRecord<Partial<T>> | Array<UpdateRecord<Partial<T>>>,
+        records: Array<RecordToUpdate<Partial<T>>>,
+        typecast?: boolean,
+    ): Promise<Array<UpdatedRecord<T>>>
+    public updateRecords(
+        recordOrRecords: RecordToUpdate<Partial<T>> | Array<RecordToUpdate<Partial<T>>>,
         typecast?: boolean,
     ): Promise<null | UpdatedRecord<T> | UpdatedRecord<T>[]> {
         return methods.updateRecords(this.credentials, this.throttle)(recordOrRecords, typecast)
