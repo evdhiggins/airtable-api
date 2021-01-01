@@ -1,7 +1,7 @@
 import { RequestCredentials } from './RequestCredentials'
 import { IThrottle } from './IThrottle'
 
-type ThrottleOptions =
+export type ThrottleOptions =
     | {
           throttleEnabled?: false
       }
