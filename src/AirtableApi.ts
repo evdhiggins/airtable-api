@@ -6,19 +6,19 @@ import {
     AirtableRecord,
     RecordToUpdate,
     RequestCredentials,
-    InitOptions,
     Filter,
     ListResults,
     IThrottle,
+    ThrottleOptions,
 } from './types'
 import { CreatedRecord, UpdatedRecord } from './types/recordTypes'
 import { makeThrottle, throttleStub } from './util'
 
 export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
     private readonly credentials: RequestCredentials
-    private throttle: IThrottle
+    private readonly throttle: IThrottle
 
-    constructor(options: InitOptions) {
+    constructor(options: RequestCredentials & ThrottleOptions) {
         this.credentials = {
             apiKey: options.apiKey,
             baseId: options.baseId,
@@ -28,8 +28,7 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
         if (options.throttleEnabled) {
             const requestsPerSecond =
                 options?.requestsPerSecond && options.requestsPerSecond > 0 ? options.requestsPerSecond : 4
-            const throttleFn = options?.customThrottle ?? makeThrottle(requestsPerSecond, 1000)
-            this.throttle = throttleFn
+            this.throttle = options?.customThrottle ?? makeThrottle(requestsPerSecond, 1000)
         } else {
             this.throttle = throttleStub
         }

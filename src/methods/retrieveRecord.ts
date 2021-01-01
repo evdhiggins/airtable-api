@@ -3,7 +3,7 @@ import {
     HttpMethod,
     IAirtableApi,
     RequestCredentials,
-    Errors,
+    HttpErrorStatus,
     MethodThrottleArg,
     AirtableRecord,
 } from '../types'
@@ -20,7 +20,7 @@ export const retrieveRecord = <T extends RecordItem>(
                 AirtableRecord<T>
             >
         } catch (err) {
-            if (err instanceof HttpError && err.statusCode === Errors.NotFound) {
+            if (err instanceof HttpError && err.statusCode === HttpErrorStatus.NotFound) {
                 return null
             }
             throw err

@@ -17,8 +17,7 @@ export class AirtableConnection {
         if (options.throttleEnabled) {
             const requestsPerSecond =
                 options?.requestsPerSecond && options.requestsPerSecond > 0 ? options.requestsPerSecond : 4
-            const throttleFn = options?.customThrottle ?? makeThrottle(requestsPerSecond, 1000)
-            this.throttle = throttleFn
+            this.throttle = options?.customThrottle ?? makeThrottle(requestsPerSecond, 1000)
         } else {
             this.throttle = throttleStub
         }

@@ -1,10 +1,5 @@
 import { RecordItem, AirtableRecord, Filter, ListResults } from '.'
-import { CreatedRecord, DeletedRecord, UpdatedRecord } from './recordTypes'
-
-export interface RecordToUpdate<T> {
-    id: string
-    fields: T
-}
+import { CreatedRecord, DeletedRecord, RecordToUpdate, UpdatedRecord } from './recordTypes'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface IAirtableApi<T extends RecordItem = any> {
