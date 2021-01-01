@@ -17,7 +17,7 @@ export const getThrottleForKey = (key: string): IThrottle => {
     if (existingThrottle) {
         return existingThrottle
     }
-    const throttle = throttleFactory(5, 1000)
+    const throttle = makeThrottle(5, 1000)
     throttlesByApiKey.set(key, throttle)
     return throttle
 }
@@ -26,7 +26,7 @@ export const getThrottleForKey = (key: string): IThrottle => {
 export const throttleStub = ((throttledFn: ThrottledFn, ...args: unknown[]) => throttledFn(...args)) as IThrottle
 
 /** Return an IThrottle method for the given requestsPerDuration / duration inputs */
-export const throttleFactory = (requestsPerDuration = 3, duration = 1000): IThrottle => {
+export const makeThrottle = (requestsPerDuration = 3, duration = 1000): IThrottle => {
     let throttleExpiration = getNow() + duration
     let requestsPerformed = 0
 

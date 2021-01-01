@@ -1,4 +1,4 @@
-import { throttleFactory, getNow, sleepUntil } from '../throttle'
+import { makeThrottle, getNow, sleepUntil } from '../throttle'
 import { IThrottle } from '../../types'
 
 let NOW = 0
@@ -66,9 +66,9 @@ describe(sleepUntil.name, () => {
     })
 })
 
-describe('throttleFactory', () => {
+describe('makeThrottle', () => {
     test('Return a function', () => {
-        const result = throttleFactory()
+        const result = makeThrottle()
         expect(typeof result).toBe('function')
     })
 })
@@ -85,13 +85,13 @@ describe('throttle', () => {
     })
 
     test('Call the passed throttled function', async () => {
-        const throttle = throttleFactory()
+        const throttle = makeThrottle()
         await throttle(throttledFn)
         expect(throttledFn).toHaveBeenCalled()
     })
 
     test('Call the passed throttled function with all received arguments', async () => {
-        const throttle = throttleFactory()
+        const throttle = makeThrottle()
         const arg1 = 'arg1'
         const arg2 = 2
         await throttle(throttledFn, arg1, arg2)
@@ -99,7 +99,7 @@ describe('throttle', () => {
     })
 
     test('Call the throttled functions in the correct order', async () => {
-        const throttle = throttleFactory(4, 1000)
+        const throttle = makeThrottle(4, 1000)
         const proms = [
             throttle(throttledFn),
             throttle(throttledFn),
@@ -122,7 +122,7 @@ describe('throttle', () => {
     describe('When a throttle is created with a duration of 5 seconds and 3 calls per duration', () => {
         let throttle: IThrottle
         beforeEach(() => {
-            throttle = throttleFactory(3, 5000)
+            throttle = makeThrottle(3, 5000)
         })
         describe('When called 3x', () => {
             test('Call the throttled fn each time', async () => {

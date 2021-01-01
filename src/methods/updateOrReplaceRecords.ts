@@ -1,4 +1,4 @@
-import { RecordItem, HttpMethod, AirtableRecord, UpdateRecord, RequestCredentials, IThrottle } from '../types'
+import { RecordItem, HttpMethod, AirtableRecord, RecordToUpdate, RequestCredentials, IThrottle } from '../types'
 import { UpdatedRecord } from '../types/recordTypes'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody, HttpError } from '../util'
 
@@ -6,7 +6,7 @@ export async function updateOrReplaceRecords<T extends RecordItem>(
     credentials: RequestCredentials,
     throttle: IThrottle,
     replaceExistingRecords: boolean,
-    recordOrRecords: UpdateRecord<Partial<T>> | Array<UpdateRecord<Partial<T>>>,
+    recordOrRecords: RecordToUpdate<Partial<T>> | Array<RecordToUpdate<Partial<T>>>,
     typecast?: boolean,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
@@ -52,9 +52,9 @@ export async function updateOrReplaceRecords<T extends RecordItem>(
                         const invalidRecordId = err.message.replace(invalidRecordRegex, '$1')
 
                         /** All records with an id that matches the error-inducing recordId */
-                        const errorRecords = [] as UpdateRecord<Partial<T>>[]
+                        const errorRecords = [] as RecordToUpdate<Partial<T>>[]
                         /** All records with an id that DOES NOT match the error recordId */
-                        const okRecords = [] as UpdateRecord<Partial<T>>[]
+                        const okRecords = [] as RecordToUpdate<Partial<T>>[]
 
                         for (const record of records) {
                             if (record.id === invalidRecordId) {

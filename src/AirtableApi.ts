@@ -12,7 +12,7 @@ import {
     IThrottle,
 } from './types'
 import { CreatedRecord, UpdatedRecord } from './types/recordTypes'
-import { throttleFactory, throttleStub } from './util'
+import { makeThrottle, throttleStub } from './util'
 
 export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
     private readonly credentials: RequestCredentials
@@ -28,7 +28,7 @@ export class AirtableApi<T extends RecordItem> implements IAirtableApi<T> {
         if (options.throttleEnabled) {
             const requestsPerSecond =
                 options?.requestsPerSecond && options.requestsPerSecond > 0 ? options.requestsPerSecond : 4
-            const throttleFn = options?.customThrottle ?? throttleFactory(requestsPerSecond, 1000)
+            const throttleFn = options?.customThrottle ?? makeThrottle(requestsPerSecond, 1000)
             this.throttle = throttleFn
         } else {
             this.throttle = throttleStub

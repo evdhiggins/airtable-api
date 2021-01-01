@@ -1,4 +1,4 @@
-import { RecordItem, UpdateRecord, RequestCredentials, MethodThrottleArg } from '../types'
+import { RecordItem, RecordToUpdate, RequestCredentials, MethodThrottleArg } from '../types'
 import { parseThrottleArg } from '../util'
 import { updateOrReplaceRecords } from './updateOrReplaceRecords'
 
@@ -9,7 +9,7 @@ export const updateRecords = <T extends RecordItem>(
 ) => {
     const throttle = parseThrottleArg(throttleArg, credentials)
     return async function (
-        recordOrRecords: UpdateRecord<Partial<T>> | Array<UpdateRecord<Partial<T>>>,
+        recordOrRecords: RecordToUpdate<Partial<T>> | Array<RecordToUpdate<Partial<T>>>,
         typecast?: boolean,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ) {
