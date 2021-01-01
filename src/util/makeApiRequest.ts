@@ -3,9 +3,18 @@ import { Readable } from 'stream'
 import { HttpMethod, RequestCredentials, JsonType } from '../types'
 import { makeApiUrl, makeQueryString, makeRequestHeaders, HttpError } from '.'
 
-const throwErrorIfInvalidHttpStatus = (response: Response) => {
+const throwErrorIfInvalidHttpStatus = async (response: Response) => {
     if (!response.ok) {
-        throw new HttpError(response.status, response.statusText)
+        let message: string | undefined
+        try {
+            const errorPayload = await response.json()
+            if (typeof errorPayload?.error?.message === 'string') {
+                message = errorPayload?.error?.message
+            }
+        } catch {
+            // do nothing
+        }
+        throw new HttpError(response.status, response.statusText, message)
     }
 }
 
@@ -28,6 +37,6 @@ export const makeApiRequest = async <T>({ method, credentials, recordId, query, 
         method,
     })
 
-    throwErrorIfInvalidHttpStatus(response)
+    await throwErrorIfInvalidHttpStatus(response)
     return response.json()
 }
