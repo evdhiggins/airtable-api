@@ -16,3 +16,8 @@ test('Returned object should have property Authorization header value', () => {
     const headers = makeRequestHeaders(mockCredentials)
     expect(headers.Authorization).toBe(`Bearer apiKey`)
 })
+
+test('Returned object should contain Content-Type header with a value of application/json', () => {
+    const headers = makeRequestHeaders(mockCredentials)
+    expect(headers['Content-Type']).toBe(`application/json`)
+})
