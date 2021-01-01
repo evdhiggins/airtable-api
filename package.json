@@ -7,9 +7,9 @@
         "build": "tsc -p .",
         "lint": "eslint '*/**/*.{js,ts}' --quiet --fix",
         "prepublish": "rm -rf ./built && npm run build",
-        "test": "jest",
-        "test:integration": "jest integration/*",
-        "test:unit": "jest unit/*"
+        "test": "jest --setupFiles dotenv/config",
+        "test.integration": "jest integration/* --setupFiles dotenv/config",
+        "test.unit": "jest src/*"
     },
     "keywords": [
         "airtable",
@@ -27,6 +27,7 @@
         "@types/node-fetch": "^2.5.7",
         "@typescript-eslint/eslint-plugin": "^4.11.1",
         "@typescript-eslint/parser": "^4.11.1",
+        "dotenv": "^8.2.0",
         "eslint": "^7.16.0",
         "eslint-config-prettier": "^7.1.0",
         "eslint-plugin-prettier": "^3.3.0",
