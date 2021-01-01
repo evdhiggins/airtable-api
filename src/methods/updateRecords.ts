@@ -9,10 +9,10 @@ export const updateRecords = <T extends RecordItem>(
 ) => {
     const throttle = parseThrottleArg(throttleArg, credentials)
     return async function (
-        recordOrRecords: UpdateRecord<T> | Array<UpdateRecord<T>>,
+        recordOrRecords: UpdateRecord<Partial<T>> | Array<UpdateRecord<Partial<T>>>,
         typecast?: boolean,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ): Promise<any> {
+    ) {
         return updateOrReplaceRecords(credentials, throttle, false, recordOrRecords, typecast)
     }
 }

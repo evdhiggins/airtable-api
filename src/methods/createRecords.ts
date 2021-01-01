@@ -1,4 +1,5 @@
 import { RecordItem, HttpMethod, AirtableRecord, IAirtableApi, RequestCredentials, MethodThrottleArg } from '../types'
+import { CreatedRecord } from '../types/recordTypes'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody, parseThrottleArg } from '../util'
 
 export const createRecords = <T extends RecordItem>(
@@ -10,16 +11,20 @@ export const createRecords = <T extends RecordItem>(
     return async function (record: T | T[], typecast?: boolean): Promise<any> {
         const { isMany, recordSets } = prepareWriteRecords(record)
 
-        const promises = recordSets.map((set) => {
-            const setWithFields = set.map((fields) => ({ fields }))
-            const body = makeWriteBody(setWithFields, typecast)
+        const promises = recordSets.map(
+            async (set): Promise<CreatedRecord<T>[]> => {
+                const setWithFields = set.map((fields) => ({ fields }))
+                const body = makeWriteBody(setWithFields, typecast)
 
-            return throttle(makeApiRequest, {
-                method: HttpMethod.Post,
-                credentials,
-                body,
-            }) as Promise<Array<AirtableRecord<T>>>
-        })
+                const createdRecords = (await throttle(makeApiRequest, {
+                    method: HttpMethod.Post,
+                    credentials,
+                    body,
+                })) as { records: AirtableRecord<T>[] }
+
+                return createdRecords.records.map((r) => ({ ...r, wasCreated: true }))
+            },
+        )
 
         const results = (await Promise.all(promises)).flat()
 

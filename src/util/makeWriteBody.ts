@@ -1,8 +1,11 @@
 import { JsonType } from '../types'
 
-type WriteBody<T> = { records: T[]; typecast?: true }
+type WriteBody<T> = { records: { fields: T; id?: string }[]; typecast?: true }
 
-export const makeWriteBody = <T>(records: T[], typecast?: boolean): Record<string, JsonType> => {
+export const makeWriteBody = <T>(
+    records: { fields: T; id?: string }[],
+    typecast?: boolean,
+): Record<string, JsonType> => {
     const body: WriteBody<T> = { records }
     if (typecast) {
         body.typecast = true
