@@ -1,10 +1,10 @@
-import { RecordItem, RecordToUpdate, RequestCredentials, MethodThrottleArg } from '../types'
+import { RecordItem, RecordToUpdate, TableConnectionCredentials, MethodThrottleArg } from '../types'
 import { parseThrottleArg } from '../util'
 import { updateOrReplaceRecords } from './updateOrReplaceRecords'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const updateRecords = <T extends RecordItem>(
-    credentials: RequestCredentials,
+    credentials: TableConnectionCredentials,
     throttleArg?: MethodThrottleArg,
 ) => {
     const throttle = parseThrottleArg(throttleArg, credentials)

@@ -2,7 +2,7 @@ import { RecordItem, AirtableRecord, Filter, ListResults } from '.'
 import { CreatedRecord, DeletedRecord, RecordToUpdate, UpdatedRecord } from './recordTypes'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface IAirtableApi<T extends RecordItem = any> {
+export interface ITableConnection<T extends RecordItem = any> {
     createRecords(record: T, typecast?: boolean): Promise<CreatedRecord<T>>
     createRecords(record: T[], typecast?: boolean): Promise<Array<CreatedRecord<T>>>
     deleteRecords(id: string): Promise<DeletedRecord>

@@ -17,24 +17,26 @@ export type RecordItem = Record<
 
 export type ThrottleOptions =
     | {
-          throttleEnabled?: false
+          throttleEnabled: false
       }
     | {
           /** Toggle request throttling. Default: true */
-          throttleEnabled: true
+          throttleEnabled?: true | undefined
           /** The number of requests permitted per second. Default: 4 */
           requestsPerSecond?: number
-          /** A custom throttle function to be used for all AirtableApi methods */
+          /** A custom throttle function to be used for all connection methods */
           customThrottle?: IThrottle
       }
 
-export interface ConnectionCredentials {
+export interface AccountConnectionCredentials {
     /** The Airtable API key of the request */
     apiKey: string
+}
+export interface BaseConnectionCredentials extends AccountConnectionCredentials {
     /** The base ID for the request */
     baseId: string
 }
-export interface RequestCredentials extends ConnectionCredentials {
+export interface TableConnectionCredentials extends BaseConnectionCredentials {
     /** The table ID or table name for the request */
     tableId: string
 }
@@ -60,7 +62,7 @@ export enum HttpErrorStatus {
     ServiceUnavailable = 503,
 }
 
-export * from './IAirtableApi'
+export * from './ITableConnection'
 export * from './Filter'
 export * from './ListResults'
 export * from './IThrottle'

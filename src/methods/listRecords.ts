@@ -1,8 +1,8 @@
 import {
     RecordItem,
     HttpMethod,
-    IAirtableApi,
-    RequestCredentials,
+    ITableConnection,
+    TableConnectionCredentials,
     Filter,
     ListResults,
     AirtableRecord,
@@ -12,9 +12,9 @@ import {
 import { makeApiRequest, parseThrottleArg } from '../util'
 
 export const listRecords = <T extends RecordItem>(
-    credentials: RequestCredentials,
+    credentials: TableConnectionCredentials,
     throttleArg?: MethodThrottleArg,
-): IAirtableApi<T>['listRecords'] => {
+): ITableConnection<T>['listRecords'] => {
     const throttle = parseThrottleArg(throttleArg, credentials)
     return async function (filterStringOrFilters: string | Filter = {}): Promise<ListResults<T>> {
         const query: Filter =

@@ -1,4 +1,4 @@
-import { IThrottle, ThrottledFn, MethodThrottleArg, RequestCredentials } from '../types'
+import { IThrottle, ThrottledFn, MethodThrottleArg, TableConnectionCredentials } from '../types'
 
 export const getNow = (): number => +new Date(Date.now())
 
@@ -47,7 +47,7 @@ export const makeThrottle = (requestsPerDuration = 3, duration = 1000): IThrottl
     return throttle as IThrottle
 }
 
-export const parseThrottleArg = (arg: MethodThrottleArg, credentials: RequestCredentials): IThrottle => {
+export const parseThrottleArg = (arg: MethodThrottleArg, credentials: TableConnectionCredentials): IThrottle => {
     if (arg === undefined || arg === null) {
         return getThrottleForKey(credentials.apiKey)
     }

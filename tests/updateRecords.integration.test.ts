@@ -1,4 +1,4 @@
-import { AirtableApi } from '../src'
+import { TableConnection } from '../src'
 import { CreatedRecord, UpdatedRecord } from '../src/types'
 
 type TestTableRecord = {
@@ -6,7 +6,7 @@ type TestTableRecord = {
     Col1: string
 }
 
-const airtableApi = new AirtableApi<TestTableRecord>({
+const tableConnection = new TableConnection<TestTableRecord>({
     apiKey: process.env.API_KEY as string,
     baseId: process.env.BASE_ID as string,
     tableId: process.env.TABLE_ID as string,
@@ -21,14 +21,14 @@ const airtableApi = new AirtableApi<TestTableRecord>({
 let rowToUpdate: CreatedRecord<TestTableRecord>
 
 beforeAll(async () => {
-    rowToUpdate = await airtableApi.createRecords({ ID: 'id-to-update', Col1: 'col1' })
+    rowToUpdate = await tableConnection.createRecords({ ID: 'id-to-update', Col1: 'col1' })
 })
 
 describe(`Given a valid recordId`, () => {
     let result: UpdatedRecord<TestTableRecord> | null
 
     beforeAll(async () => {
-        result = await airtableApi.updateRecords({ id: rowToUpdate?.id, fields: { ID: 'updated-id' } })
+        result = await tableConnection.updateRecords({ id: rowToUpdate?.id, fields: { ID: 'updated-id' } })
     })
 
     test('Return a UpdatedRecord of the updated row', () => {
@@ -39,7 +39,7 @@ describe(`Given a valid recordId`, () => {
 })
 
 test('Given a non-existent record id, return null', async () => {
-    const result = await airtableApi.updateRecords({ id: 'rec00000000000000', fields: { Col1: 'abc' } })
+    const result = await tableConnection.updateRecords({ id: 'rec00000000000000', fields: { Col1: 'abc' } })
     expect(result).toBe(null)
 })
 
@@ -51,7 +51,7 @@ describe('Given an array of update values with one valid & one invalid id', () =
 
     beforeAll(async () => {
         validRecord.id = rowToUpdate.id
-        results = await airtableApi.updateRecords([validRecord, invalidRecord])
+        results = await tableConnection.updateRecords([validRecord, invalidRecord])
     })
 
     test('Return an array of records with a length of 2', () => {

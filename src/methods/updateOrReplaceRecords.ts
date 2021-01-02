@@ -1,9 +1,9 @@
-import { RecordItem, HttpMethod, AirtableRecord, RecordToUpdate, RequestCredentials, IThrottle } from '../types'
+import { RecordItem, HttpMethod, AirtableRecord, RecordToUpdate, TableConnectionCredentials, IThrottle } from '../types'
 import { UpdatedRecord } from '../types/recordTypes'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody, HttpError } from '../util'
 
 export async function updateOrReplaceRecords<T extends RecordItem>(
-    credentials: RequestCredentials,
+    credentials: TableConnectionCredentials,
     throttle: IThrottle,
     replaceExistingRecords: boolean,
     recordOrRecords: RecordToUpdate<Partial<T>> | Array<RecordToUpdate<Partial<T>>>,

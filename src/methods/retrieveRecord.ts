@@ -1,8 +1,8 @@
 import {
     RecordItem,
     HttpMethod,
-    IAirtableApi,
-    RequestCredentials,
+    ITableConnection,
+    TableConnectionCredentials,
     HttpErrorStatus,
     MethodThrottleArg,
     AirtableRecord,
@@ -10,9 +10,9 @@ import {
 import { makeApiRequest, HttpError, parseThrottleArg } from '../util'
 
 export const retrieveRecord = <T extends RecordItem>(
-    credentials: RequestCredentials,
+    credentials: TableConnectionCredentials,
     throttleArg?: MethodThrottleArg,
-): IAirtableApi<T>['retrieveRecord'] => {
+): ITableConnection<T>['retrieveRecord'] => {
     const throttle = parseThrottleArg(throttleArg, credentials)
     return async function (recordId: string): Promise<AirtableRecord<T> | null> {
         try {

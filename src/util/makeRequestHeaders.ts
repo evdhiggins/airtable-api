@@ -1,6 +1,6 @@
-import { RequestCredentials } from '../types'
+import { TableConnectionCredentials } from '../types'
 
-export const makeRequestHeaders = (credentials: RequestCredentials): { [index: string]: string } => ({
+export const makeRequestHeaders = (credentials: TableConnectionCredentials): { [index: string]: string } => ({
     Authorization: `Bearer ${credentials.apiKey}`,
     'Content-Type': 'application/json',
 })

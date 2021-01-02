@@ -1,4 +1,4 @@
-import { AirtableApi } from '../src'
+import { TableConnection } from '../src'
 import { ListResults } from '../src/types'
 
 type TestTableRecord = {
@@ -6,7 +6,7 @@ type TestTableRecord = {
     Col1: string
 }
 
-const airtableApi = new AirtableApi<TestTableRecord>({
+const tableConnection = new TableConnection<TestTableRecord>({
     apiKey: process.env.API_KEY as string,
     baseId: process.env.BASE_ID as string,
     tableId: process.env.TABLE_ID as string,
@@ -15,7 +15,7 @@ const airtableApi = new AirtableApi<TestTableRecord>({
 })
 
 test('Run without error', async () => {
-    const fn = () => airtableApi.listRecords({ maxRecords: 1 })
+    const fn = () => tableConnection.listRecords({ maxRecords: 1 })
     await expect(fn()).resolves.not.toThrow()
 })
 
@@ -23,7 +23,7 @@ describe('Given a valid request with a limit of 3 records for a table with >= 6 
     let results: ListResults<TestTableRecord>
 
     beforeAll(async () => {
-        results = await airtableApi.listRecords({ pageSize: 3 })
+        results = await tableConnection.listRecords({ pageSize: 3 })
     })
 
     test('Return an object containing an array of 3 `records`', () => {

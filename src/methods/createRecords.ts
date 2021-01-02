@@ -1,11 +1,18 @@
-import { RecordItem, HttpMethod, AirtableRecord, IAirtableApi, RequestCredentials, MethodThrottleArg } from '../types'
+import {
+    RecordItem,
+    HttpMethod,
+    AirtableRecord,
+    ITableConnection,
+    TableConnectionCredentials,
+    MethodThrottleArg,
+} from '../types'
 import { CreatedRecord } from '../types/recordTypes'
 import { makeApiRequest, prepareWriteRecords, makeWriteBody, parseThrottleArg } from '../util'
 
 export const createRecords = <T extends RecordItem>(
-    credentials: RequestCredentials,
+    credentials: TableConnectionCredentials,
     throttleArg?: MethodThrottleArg,
-): IAirtableApi<T>['createRecords'] => {
+): ITableConnection<T>['createRecords'] => {
     const throttle = parseThrottleArg(throttleArg, credentials)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return async function (record: T | T[], typecast?: boolean): Promise<any> {

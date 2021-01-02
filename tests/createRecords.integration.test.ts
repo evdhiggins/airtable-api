@@ -1,4 +1,4 @@
-import { AirtableApi } from '../src'
+import { TableConnection } from '../src'
 import { CreatedRecord } from '../src/types'
 
 type TestTableRecord = {
@@ -6,7 +6,7 @@ type TestTableRecord = {
     Col1: string
 }
 
-const airtableApi = new AirtableApi<TestTableRecord>({
+const tableConnection = new TableConnection<TestTableRecord>({
     apiKey: process.env.API_KEY as string,
     baseId: process.env.BASE_ID as string,
     tableId: process.env.TABLE_ID as string,
@@ -15,7 +15,7 @@ const airtableApi = new AirtableApi<TestTableRecord>({
 })
 
 test('Run without error', async () => {
-    const fn = () => airtableApi.createRecords({ ID: 'test-id', Col1: 'test-col1' })
+    const fn = () => tableConnection.createRecords({ ID: 'test-id', Col1: 'test-col1' })
     await expect(fn()).resolves.not.toThrow()
 })
 
@@ -29,7 +29,7 @@ describe(`Given a valid payload of 3 rows`, () => {
     ]
 
     beforeAll(async () => {
-        results = await airtableApi.createRecords(rowsToCreate)
+        results = await tableConnection.createRecords(rowsToCreate)
     })
 
     test(`Return a results object with a length of 3`, () => {
@@ -58,7 +58,7 @@ describe(`Given a valid payload of a single object`, () => {
     const rowToCreate: TestTableRecord = { ID: 'id-1', Col1: 'col1-1' }
 
     beforeAll(async () => {
-        result = await airtableApi.createRecords(rowToCreate)
+        result = await tableConnection.createRecords(rowToCreate)
     })
 
     test(`Return an object containing record id, created timestamp, and fields`, () => {
