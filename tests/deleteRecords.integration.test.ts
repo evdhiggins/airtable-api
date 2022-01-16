@@ -55,12 +55,12 @@ describe('Given an array of ids to delete with one valid & one invalid', () => {
     })
 
     test(`The DeletedRecord wasDeleted flag for the valid ID should be true`, () => {
-        const deletedRecord = results.find((r) => r.id === validId)
+        const deletedRecord = results.find(r => r.id === validId)
         expect(deletedRecord?.wasDeleted).toBeTruthy()
     })
 
     test(`The DeletedRecord wasDeleted falg for the invalid ID should be false`, () => {
-        const deletedRecord = results.find((r) => r.id === invalidId)
+        const deletedRecord = results.find(r => r.id === invalidId)
         expect(deletedRecord?.wasDeleted).not.toBeTruthy()
     })
 })

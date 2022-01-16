@@ -25,7 +25,7 @@ describe('When given an array value', () => {
                 expect(value.recordSets.length).toBe(5)
             })
             test('Should contain 5 arrays each with a length of 10', () => {
-                value.recordSets.forEach((set) => {
+                value.recordSets.forEach(set => {
                     expect(set.length).toBe(10)
                 })
             })

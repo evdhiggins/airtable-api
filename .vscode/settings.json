@@ -1,7 +1,24 @@
 {
     "files.trimTrailingWhitespace": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
+    "cSpell.words": ["Airtable"],
+    "eslint.format.enable": true,
+    "[typescript]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true
+        },
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
-    "cSpell.words": ["Airtable"]
+    "[javascript]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

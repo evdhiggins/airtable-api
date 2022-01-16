@@ -5,7 +5,7 @@ let NOW = 0
 
 // create mocks
 const nowMock = jest.fn(() => NOW)
-jest.useFakeTimers()
+jest.useFakeTimers('legacy')
 global.Date.now = nowMock
 
 beforeEach(() => {
