@@ -59,12 +59,12 @@ describe('Given an array of update values with one valid & one invalid id', () =
     })
 
     test(`Returned updated record for validRecord should have a wasUpdated flag = true`, () => {
-        const updatedRecord = results.find((r) => r.id === validRecord.id)
+        const updatedRecord = results.find(r => r.id === validRecord.id)
         expect(updatedRecord?.wasUpdated).toBeTruthy()
     })
 
     test(`Returned updated record for invalidRecord should have a wasUpdated flag = false`, () => {
-        const updatedRecord = results.find((r) => r.id === invalidRecord.id)
+        const updatedRecord = results.find(r => r.id === invalidRecord.id)
         expect(updatedRecord?.wasUpdated).not.toBeTruthy()
     })
 })

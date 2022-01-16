@@ -10,5 +10,5 @@ export const makeWriteBody = <T>(
     if (typecast) {
         body.typecast = true
     }
-    return (body as unknown) as Record<string, JsonType>
+    return body as unknown as Record<string, JsonType>
 }

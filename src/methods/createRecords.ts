@@ -18,20 +18,18 @@ export const createRecords = <T extends RecordItem>(
     return async function (record: T | T[], typecast?: boolean): Promise<any> {
         const { isMany, recordSets } = prepareWriteRecords(record)
 
-        const promises = recordSets.map(
-            async (set): Promise<CreatedRecord<T>[]> => {
-                const setWithFields = set.map((fields) => ({ fields }))
-                const body = makeWriteBody(setWithFields, typecast)
+        const promises = recordSets.map(async (set): Promise<CreatedRecord<T>[]> => {
+            const setWithFields = set.map(fields => ({ fields }))
+            const body = makeWriteBody(setWithFields, typecast)
 
-                const createdRecords = (await throttle(makeApiRequest, {
-                    method: HttpMethod.Post,
-                    credentials,
-                    body,
-                })) as { records: AirtableRecord<T>[] }
+            const createdRecords = (await throttle(makeApiRequest, {
+                method: HttpMethod.Post,
+                credentials,
+                body,
+            })) as { records: AirtableRecord<T>[] }
 
-                return createdRecords.records.map((r) => ({ ...r, wasCreated: true }))
-            },
-        )
+            return createdRecords.records.map(r => ({ ...r, wasCreated: true }))
+        })
 
         const results = (await Promise.all(promises)).flat()
 

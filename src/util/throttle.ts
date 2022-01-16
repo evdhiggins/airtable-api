@@ -3,7 +3,7 @@ import { IThrottle, ThrottledFn, MethodThrottleArg, TableConnectionCredentials }
 export const getNow = (): number => +new Date(Date.now())
 
 export const sleepUntil = (timestamp: number): Promise<void> => {
-    return new Promise((res) => {
+    return new Promise(res => {
         const offset = timestamp - getNow()
         return offset > 0 ? setTimeout(res, offset) : res()
     })

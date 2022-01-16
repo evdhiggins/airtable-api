@@ -1,7 +1,7 @@
 import { parseThrottleArg, throttleStub } from '../throttle'
 import { RequestCredentials, IThrottle } from '../../types'
 
-const makeCredentialsMock = (apiKey: string) => (({ apiKey } as unknown) as RequestCredentials)
+const makeCredentialsMock = (apiKey: string) => ({ apiKey } as unknown as RequestCredentials)
 const throttleMock = (() => null as unknown) as IThrottle
 
 test('Return a function', () => {

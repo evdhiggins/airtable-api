@@ -37,7 +37,7 @@ describe(`Given a valid payload of 3 rows`, () => {
     })
 
     test(`Each results object should contain an airtable record id, created timestamp, and fields`, () => {
-        results.forEach((result) => {
+        results.forEach(result => {
             expect(result).toHaveProperty('id')
             expect(result).toHaveProperty('createdTime')
             expect(result).toHaveProperty('fields')
@@ -45,8 +45,8 @@ describe(`Given a valid payload of 3 rows`, () => {
     })
 
     test(`Each field object should correspond with one of the rows to create elements`, () => {
-        results.forEach((result) => {
-            const isInRowsToCreate = rowsToCreate.some((r) => r.ID === result.fields.ID)
+        results.forEach(result => {
+            const isInRowsToCreate = rowsToCreate.some(r => r.ID === result.fields.ID)
             expect(isInRowsToCreate).toBeTruthy()
         })
     })
