@@ -1,7 +1,12 @@
 {
     "files.trimTrailingWhitespace": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
+    "cSpell.words": ["Airtable"],
+    "eslint.format.enable": true,
+    "[typescript]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true
+        },
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
-    "cSpell.words": ["Airtable"]
+    "typescript.tsdk": "node_modules/typescript/lib"
 }
