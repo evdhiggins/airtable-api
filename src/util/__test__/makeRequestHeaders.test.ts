@@ -1,7 +1,7 @@
-import { RequestCredentials } from '../../types'
+import { TableConnectionCredentials } from '../../types'
 import { makeRequestHeaders } from '../makeRequestHeaders'
 
-const mockCredentials: RequestCredentials = {
+const mockCredentials: TableConnectionCredentials = {
     apiKey: 'apiKey',
     baseId: '',
     tableId: '',
