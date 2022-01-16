@@ -7,8 +7,8 @@
         "build": "tsc -p ./tsconfig.build.json",
         "lint": "eslint '*/**/*.{js,ts}' --quiet --fix",
         "prepublish": "rm -rf ./built && npm run build",
-        "test": "jest --setupFiles dotenv/config",
-        "test.integration": "jest integration/* --setupFiles dotenv/config",
+        "test": "jest",
+        "test.integration": "jest integration/*",
         "test.unit": "jest src/*"
     },
     "keywords": [
@@ -36,13 +36,6 @@
         "ts-jest": "27.1.3",
         "ts-node": "10.4.0",
         "typescript": "4.5.4"
-    },
-    "jest": {
-        "preset": "ts-jest",
-        "testEnvironment": "node",
-        "transform": {
-            "^.+\\.js$": "babel-jest"
-        }
     },
     "publishConfig": {
         "registry": "https://npm.pkg.github.com"
